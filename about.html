@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PharmaMan</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="header-2">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="images/Logo_med2.png" width="125px" />
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="product.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html"> <img src="images/cart.png" width="30px" height="30px"></a>
+                <img src="images/menu.png" class="menu-icon" onclick="menuToggle()">
+            </div>
+        </div>
+    </div>
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>About Us</h2>
+        </div>
+        <div class="about-us">
+            <h3>PharmaMan</h3>
+            <br>
+            <p>Not simply one more online pharmacy … Our all around supplied available and inviting pharmacy and treatment rooms are based at 260 Upper Street, Manhattan, N1.</p>
+            <br>
+            <p>PharmaMan have been putting forth pharmacy administrations to our clients for more than 100 years. We know the pharmacy and wellbeing and magnificence industry back to front, continually guaranteeing we offer the most breakthrough items and
+                medications. We bring our customers the best quality administration and give the nearby network and neighboring wards with a brilliant, understanding centered administration.</p>
+            <br>
+            <p>PharmaMan offers a one of a kind mix of pharmacy and magnificence facility in Manhattan with numerous superlative wellbeing and excellence medicines. We utilize our insight into the pharmaceutical business to ensure that the majority of our
+                magnificence items and medicines are results driven, with the goal that we can offer brands that are ideal for every person.</p>
+            <br>
+            <p>PharmaMan pharmacy is a warm and well disposed place, with experienced specialists giving proficient skincare medicines, and magnificence exhortation in a quiet and loosening up condition. Having some expertise in pharmacy administrations
+                and wellbeing and excellence medicines in US, we likewise offer a stroll in movement center, just as offering an approved yellow fever facility. Our services incorporate administering remedies, new drug benefits, a gathering and conveyance
+                work, glucose and cholesterol checks, a stroll in movement facility, and a huge number of wellbeing and excellence medicines and items.</p>
+
+
+        </div>
+    </div>
+
+    <!------------Footer-------------->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download our App</h3>
+                    <p>Download App for Android and ios mobile phone.</p>
+
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/Logo_med2.png">
+                    <p>Our Purpose is to Sustainably make the pleasure and Benefits ofSports Accessible to Many.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>YouTube</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+            <p class="copyright">logo icons PNG Designed By Irfan Khan Alvi from <a href="https://pngtree.com/">Pngtree.com</a></p>
+        </div>
+    </div>
+
+    <!-----------JS for toggle Menu------------>
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+
+        function menuToggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            } else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+</body>
+
+</html>
