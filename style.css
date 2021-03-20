@@ -83,7 +83,7 @@ p {
 }
 
 .header {
-    background: radial-gradient(#fff, rgb(44, 238, 238));
+    background: linear-gradient(#fff, #1caca5)
 }
 
 .header .row {
@@ -164,7 +164,7 @@ h4 {
 /*-----------------offer---------------*/
 
 .offer {
-    background: radial-gradient(#fff, rgb(44, 238, 238));
+    background: linear-gradient(#fff, #1caca5);
     margin-top: 80px;
     padding: 30px 0;
 }
@@ -506,7 +506,7 @@ th:last-child {
 
 .account-page {
     padding: 50px 0;
-    background: radial-gradient(#fff, rgb(44, 238, 238));
+    background: linear-gradient(#fff, #1caca5);
 }
 
 .form-container {
