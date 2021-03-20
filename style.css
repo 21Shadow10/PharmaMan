@@ -422,7 +422,7 @@ input:focus {
 }
 
 .single-product .fa {
-    color: #115e53;
+    color: #3b5a73;
     margin-left: 10px;
 }
 
@@ -488,7 +488,7 @@ td img {
 }
 
 .total-price table {
-    border-top: 3px solid #115e53;
+    border-top: 3px solid #3b5a73;
     width: 100%;
     max-width: 400px;
 }
@@ -576,7 +576,7 @@ form a {
 #Indicator {
     width: 100px;
     border: none;
-    background: #115e53;
+    background: #3b5a73;
     height: 3px;
     margin-top: 8px;
     transform: translateX(100px);
