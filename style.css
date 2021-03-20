@@ -70,7 +70,7 @@ p {
 
 .btn {
     display: inline-block;
-    background: #ff523b;
+    background: #115e53;
     color: #fff;
     padding: 8px 30px;
     margin: 30px 0;
@@ -83,7 +83,7 @@ p {
 }
 
 .header {
-    background: radial-gradient(#fff, #ffd6d6);
+    background: radial-gradient(#fff, rgb(44, 238, 238));
 }
 
 .header .row {
@@ -133,7 +133,7 @@ p {
 
 .title::after {
     content: '';
-    background: #ff523b;
+    background: #115e53;
     width: 80px;
     height: 5px;
     border-radius: 5px;
@@ -153,7 +153,7 @@ h4 {
 }
 
 .rating .fa {
-    color: #ff523b;
+    color: #115e53;
 }
 
 .col-4:hover {
@@ -164,7 +164,7 @@ h4 {
 /*-----------------offer---------------*/
 
 .offer {
-    background: radial-gradient(#fff, #ffd6d6);
+    background: radial-gradient(#fff, rgb(44, 238, 238));
     margin-top: 80px;
     padding: 30px 0;
 }
@@ -204,7 +204,7 @@ small {
 
 .fa.fa-quote-left {
     font-size: 34px;
-    color: #ff523b;
+    color: #115e53;
 }
 
 .col-3 p {
@@ -353,7 +353,7 @@ ul {
 }
 
 select {
-    border: 1px solid #ff523b;
+    border: 1px solid #115e53;
     padding: 5px;
 }
 
@@ -367,7 +367,7 @@ select:focus {
 
 .page-btn span {
     display: inline-block;
-    border: 1px solid #ff523b;
+    border: 1px solid #115e53;
     margin-left: 10px;
     width: 40px;
     height: 40px;
@@ -377,7 +377,7 @@ select:focus {
 }
 
 .page-btn span:hover {
-    background: #ff523b;
+    background: #115e53;
     color: white;
 }
 
@@ -414,7 +414,7 @@ select:focus {
     padding-left: 10px;
     font-size: 20px;
     margin-right: 10px;
-    border: 1px solid #ff523b;
+    border: 1px solid #115e53;
 }
 
 input:focus {
@@ -422,7 +422,7 @@ input:focus {
 }
 
 .single-product .fa {
-    color: #ff523b;
+    color: #115e53;
     margin-left: 10px;
 }
 
@@ -457,7 +457,7 @@ th {
     text-align: left;
     padding: 5px;
     color: #fff;
-    background: #ff523b;
+    background: #115e53;
     font-weight: normal;
 }
 
@@ -472,7 +472,7 @@ td input {
 }
 
 td a {
-    color: #ff523b;
+    color: #115e53;
     font-size: 12px;
 }
 
@@ -488,7 +488,7 @@ td img {
 }
 
 .total-price table {
-    border-top: 3px solid #ff523b;
+    border-top: 3px solid #115e53;
     width: 100%;
     max-width: 400px;
 }
@@ -506,7 +506,7 @@ th:last-child {
 
 .account-page {
     padding: 50px 0;
-    background: radial-gradient(#fff, #ffd6d6);
+    background: radial-gradient(#fff, rgb(44, 238, 238));
 }
 
 .form-container {
@@ -576,7 +576,7 @@ form a {
 #Indicator {
     width: 100px;
     border: none;
-    background: #ff523b;
+    background: #115e53;
     height: 3px;
     margin-top: 8px;
     transform: translateX(100px);
