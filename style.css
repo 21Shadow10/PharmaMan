@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -79,7 +80,7 @@ p {
 }
 
 .btn:hover {
-    background: #563434;
+    background: #344256;
 }
 
 .header {
@@ -168,6 +169,7 @@ h4 {
 .col-3:hover {
     transform: translateY(-5px);
 }
+
 
 /*-----------------offer---------------*/
 
