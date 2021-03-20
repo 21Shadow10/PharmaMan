@@ -571,6 +571,10 @@ form .btn:focus {
     outline: none;
 }
 
+#ForgotPassword {
+    left: -600px;
+}
+
 #LoginForm {
     left: -300px;
 }

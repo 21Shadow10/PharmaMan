@@ -46,16 +46,20 @@
                             <span onclick="register()">Register</span>
                             <hr id="Indicator">
                         </div>
+                        <form id="ForgotPassword">
+                            <input type="email" placeholder="Email" required>
+                            <button type="submit" class="btn">Submit</button>
+                        </form>
                         <form id="LoginForm">
-                            <input type="text" placeholder="Username">
-                            <input type="password" placeholder="Password">
+                            <input type="text" placeholder="Username" required>
+                            <input type="password" placeholder="Password" required>
                             <button type="submit" class="btn">Login</button>
-                            <a href="">Forgot Password</a>
+                            <a href="#" onclick="forgot()">Forgot Password</a>
                         </form>
                         <form id="RegForm">
-                            <input type="text" placeholder="Username">
+                            <input type="text" placeholder="Username" required>
                             <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password">
+                            <input type="password" placeholder="Password" required>
                             <button type="submit" class="btn">Register</button>
                         </form>
                     </div>
@@ -116,18 +120,30 @@
     <script>
         var LoginForm = document.getElementById("LoginForm")
         var RegForm = document.getElementById("RegForm")
+        var ForgotPassword = document.getElementById("ForgotPassword")
         var Indicator = document.getElementById("Indicator")
 
         function register() {
             RegForm.style.transform = "translateX(0px)";
             LoginForm.style.transform = "translateX(0px)";
+            ForgotPassword.style.transform = "translateX(0px)";
             Indicator.style.transform = "translateX(100px)";
+            Indicator.style.visibility = "visible";
         }
 
         function login() {
             RegForm.style.transform = "translateX(300px)";
             LoginForm.style.transform = "translateX(300px)";
+            ForgotPassword.style.transform = "translateX(300px)"
             Indicator.style.transform = "translateX(0px)";
+            Indicator.style.visibility = "visible";
+        }
+
+        function forgot() {
+            RegForm.style.transform = "translateX(600px)";
+            LoginForm.style.transform = "translateX(600px)";
+            ForgotPassword.style.transform = "translateX(600px)";
+            Indicator.style.visibility = "hidden";
         }
     </script>
 </body>
