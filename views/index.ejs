@@ -42,10 +42,42 @@
 
         <!---------------Featured Products--------------->
         <div class="small-container">
+            <%for(i=0;i<prod.length;i++) {%>
+                <div class="row">
+                    <%var products=prod[i];%>
+                        <% if (products.length > 0) { %>
+                            <% products.forEach( product => {%>
+                                <div class="col-4">
+                                    <img src="<%- product.src %>">
+                                    <h4>
+                                        <%= product.name %>
+                                    </h4>
+                                    <div class="rating">
+                                        <% for (j = 0; j < product.stars; j++) { %>
+                                            <i class="fa fa-star"></i>
+                                            <%}%>
+                                                <% for (j = 0; j < 5-product.stars; j++) { %>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <%}%>
+
+                                    </div>
+                                    <p>
+                                        <%= product.price %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p>There are no products to display...</p>
+                                        <% } %>
+                </div>
+                <%}%>
+        </div>
+        <!--raw html-->
+        <div class="small-container">
             <h2 class="title">Featured Products</h2>
             <div class="row">
                 <div class="col-4">
-                    <img src="/product-1.jpg"></a>
+                    <img src="/product-1.jpg">
                     <h4>CNF+ Tablets (120mg)</h4>
                     <div class="rating">
                         <i class="fa fa-star"></i>
@@ -71,8 +103,8 @@
                 </div>
 
                 <div class="col-4">
-                    <a href="./product-details.html"><img src="/product-3.jpg"></a>
-                    <a href="./product-details.html">
+                    <a href="/product-details"><img src="/product-3.jpg"></a>
+                    <a href="/product-details">
                         <h4>CNF+ Tablets (120mg)</h4>
                     </a>
                     <div class="rating">

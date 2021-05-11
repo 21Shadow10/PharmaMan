@@ -511,6 +511,16 @@ th:last-child {
     text-align: right;
 }
 
+.remove {
+    display: inline-block;
+    background: #3b5a73;
+    color: #fff;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition: background 0.5s;
+}
+
 
 /*--------------------account page----------*/
 

@@ -10,7 +10,69 @@ app.use(express.static('public'));
 app.listen(3000);
 
 app.get('/', (req, res) => {
-    res.render('index', { title: 'Home' });
+    const products = [{
+            src: '/product-1.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-2.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-3.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-4.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-5.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-6.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-7.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-8.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-9.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+    ];
+    const prod = [];
+    var chunkSize = 4;
+    for (let i = 0; i < products.length; i += chunkSize) {
+        const chunk = products.slice(i, i + chunkSize);
+        prod.push(chunk);
+    }
+
+    res.render('index', { title: 'Home', prod });
 });
 
 app.get('/about', (req, res) => {
@@ -18,17 +80,17 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/product', (req, res) => {
-    res.render('product', { title: 'product' });
+    res.render('product', { title: 'Product' });
 });
 
 app.get('/account', (req, res) => {
-    res.render('account', { title: 'account' });
+    res.render('account', { title: 'Account' });
 });
 app.get('/cart', (req, res) => {
-    res.render('cart', { title: 'cart' });
+    res.render('cart', { title: 'Cart' });
 });
 app.get('/product-details', (req, res) => {
-    res.render('product-details', { title: 'product-details' });
+    res.render('product-details', { title: 'Product-details' });
 });
 // 404 page
 app.use((req, res) => {
