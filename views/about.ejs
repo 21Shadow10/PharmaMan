@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+        <div class="header-2">
+            <div class="container">
+                <%- include('./partials/nav.ejs') %>
+            </div>
+        </div>
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>About Us</h2>
+            </div>
+            <div class="about-us">
+                <h3>PharmaMan</h3>
+                <br>
+                <p>Not simply one more online pharmacy … Our all around supplied available and inviting pharmacy and treatment rooms are based at 260 Upper Street, Manhattan, N1.</p>
+                <br>
+                <p>PharmaMan have been putting forth pharmacy administrations to our clients for more than 100 years. We know the pharmacy and wellbeing and magnificence industry back to front, continually guaranteeing we offer the most breakthrough items
+                    and medications. We bring our customers the best quality administration and give the nearby network and neighboring wards with a brilliant, understanding centered administration.</p>
+                <br>
+                <p>PharmaMan offers a one of a kind mix of pharmacy and magnificence facility in Manhattan with numerous superlative wellbeing and excellence medicines. We utilize our insight into the pharmaceutical business to ensure that the majority of
+                    our magnificence items and medicines are results driven, with the goal that we can offer brands that are ideal for every person.</p>
+                <br>
+                <p>PharmaMan pharmacy is a warm and well disposed place, with experienced specialists giving proficient skincare medicines, and magnificence exhortation in a quiet and loosening up condition. Having some expertise in pharmacy administrations
+                    and wellbeing and excellence medicines in US, we likewise offer a stroll in movement center, just as offering an approved yellow fever facility. Our services incorporate administering remedies, new drug benefits, a gathering and conveyance
+                    work, glucose and cholesterol checks, a stroll in movement facility, and a huge number of wellbeing and excellence medicines and items.</p>
+
+
+            </div>
+        </div>
+
+        <!------------Footer-------------->
+        <%- include('./partials/footer.ejs') %>
+
+            <!-----------JS for toggle Menu------------>
+            <script>
+                var MenuItems = document.getElementById("MenuItems");
+                MenuItems.style.maxHeight = "0px";
+
+                function menuToggle() {
+                    if (MenuItems.style.maxHeight == "0px") {
+                        MenuItems.style.maxHeight = "200px"
+                    } else {
+                        MenuItems.style.maxHeight = "0px"
+                    }
+                }
+            </script>
+
+    </body>
+
+</html>
