@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+        <div class="header-2">
+            <div class="container">
+                <%- include('./partials/nav.ejs') %>
+            </div>
+        </div>
+        <!-- single product details-->
+        <div class="small-container single-product">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/gallery-1.jpg" width="100%" id="ProductImg">
+                    <div class="small-img-row">
+                        <div class="small-img-col">
+                            <img src="/gallery-1.jpg" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/gallery-2.jpg" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/gallery-3.jpg" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/gallery-4.jpg" width="100%" class="small-img">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-2">
+                    <p>Home / T-Shirt</p>
+                    <h1>CNF+ Tablets (120mg) by HRX</h1>
+                    <h4>$50.00</h4>
+                    <input type="number" value="1">
+                    <a href="/cart" class="btn">Add to Cart</a>
+                    <h3>Product Details <i class="fa fa-indent"></i></h3>
+                    <br>
+                    <p>Give your summer wardrobe a style upgrade with the HRX Men's Active T-shirt. Team it with a pair of shorts for your morning workout or a denims for an evening with guys.</p>
+
+                </div>
+            </div>
+        </div>
+        <!-------title-------->
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>Related Products</h2>
+                <p>View More</p>
+            </div>
+        </div>
+        <!-----products------->
+        <div class="small-container">
+            <div class="row">
+                <div class="col-4">
+                    <img src="/product-9.jpg">
+                    <h4>CNF+ Tablets (120mg)</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p>$50.00</p>
+                </div>
+
+                <div class="col-4">
+                    <img src="/product-10.jpg">
+                    <h4>CNF+ Tablets (120mg)</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p>$50.00</p>
+                </div>
+
+                <div class="col-4">
+                    <img src="/product-11.jpg">
+                    <h4>CNF+ Tablets (120mg)</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <p>$50.00</p>
+                </div>
+
+                <div class="col-4">
+                    <img src="/product-12.jpg">
+                    <h4>CNF+ Tablets (120mg)</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p>$50.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!------------Footer-------------->
+        <%- include('./partials/footer.ejs') %>
+
+            <!-----------JS for toggle Menu------------>
+            <script>
+                var MenuItems = document.getElementById("MenuItems");
+                MenuItems.style.maxHeight = "0px";
+
+                function menuToggle() {
+                    if (MenuItems.style.maxHeight == "0px") {
+                        MenuItems.style.maxHeight = "200px"
+                    } else {
+                        MenuItems.style.maxHeight = "0px"
+                    }
+                }
+            </script>
+            <!-----JS fot product gallery------>
+            <script>
+                var ProductImg = document.getElementById("ProductImg");
+                var SmallImg = document.getElementsByClassName("small-img")
+                SmallImg[0].onclick = function() {
+                    ProductImg.src = SmallImg[0].src
+                }
+                SmallImg[1].onclick = function() {
+                    ProductImg.src = SmallImg[1].src
+                }
+                SmallImg[2].onclick = function() {
+                    ProductImg.src = SmallImg[2].src
+                }
+                SmallImg[3].onclick = function() {
+                    ProductImg.src = SmallImg[3].src
+                }
+            </script>
+
+    </body>
+
+</html>
