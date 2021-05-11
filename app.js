@@ -30,6 +30,11 @@ app.get('/cart', (req, res) => {
 app.get('/product-details', (req, res) => {
     res.render('product-details', { title: 'product-details' });
 });
+
+app.get('/admin-product', (req,res) => {
+    res.render('admin-product', {title: 'Products-Admin'})
+});
+
 // 404 page
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
