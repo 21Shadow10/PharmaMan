@@ -11,7 +11,21 @@
     </div>
 
     <div class="medicines">
-        
+        <% for(let i=0;i<prod.length;i++) {
+            let products = prod[i] ;
+            if(products.length>0) {
+                products.forEach(product => { %>
+                    <div class="onemed">
+                        <h3>
+                            <%= product.name %>
+                        </h3>
+                        <!--Add Product ID-->
+                        <a href="/admin/452251563231"><button class="btn-a">Edit</button></a>
+                    </div>
+                    <br>
+               <% })
+            }
+        } %>
     </div>
 
     <!------------Footer-------------->
