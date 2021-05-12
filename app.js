@@ -80,7 +80,159 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/product', (req, res) => {
-    res.render('product', { title: 'Product' });
+    const products = [{
+            src: '/product-1.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-2.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-3.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-4.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-5.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-6.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-7.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-8.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-9.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-10.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-11.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-12.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-1.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-2.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-3.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-4.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-5.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-6.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-7.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-8.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-9.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-10.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+        {
+            src: '/product-11.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 5,
+        },
+        {
+            src: '/product-12.jpg',
+            price: '50$',
+            name: 'CNF+ Tablets (120mg)',
+            stars: 4,
+        },
+    ];
+    const prod = [];
+    var chunkSize = 4;
+    for (let i = 0; i < products.length; i += chunkSize) {
+        const chunk = products.slice(i, i + chunkSize);
+        prod.push(chunk);
+    }
+
+    res.render('product', { title: 'Product', prod });
 });
 
 app.get('/account', (req, res) => {

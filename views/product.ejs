@@ -20,177 +20,43 @@
                 <option>Sort by rating</option>
             </Select>
             </div>
-            <div class="row">
-                <div class="col-4">
-                    <img src="/product-1.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
+            <%for(i=0;i<prod.length;i++) {%>
+                <div class="row">
+                    <%var products=prod[i];%>
+                        <% if (products.length > 0) { %>
+                            <% products.forEach( product => {%>
+                                <div class="col-4">
+                                    <img src="<%- product.src %>">
+                                    <h4>
+                                        <%= product.name %>
+                                    </h4>
+                                    <div class="rating">
+                                        <% for (j = 0; j < product.stars; j++) { %>
+                                            <i class="fa fa-star"></i>
+                                            <%}%>
+                                                <% for (j = 0; j < 5-product.stars; j++) { %>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <%}%>
 
-                <div class="col-4">
-                    <img src="/product-2.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
+                                    </div>
+                                    <p>
+                                        <%= product.price %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p>There are no products to display...</p>
+                                        <% } %>
                 </div>
-
-                <div class="col-4">
-                    <a href="/product-details"><img src="/product-3.jpg"></a>
-                    <a href="product-details.html">
-                        <h4>CNF+ Tablets (120mg)</h4>
-                    </a>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
+                <%}%>
+                    <div class="page-btn">
+                        <span onclick="">1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>&#8594</span>
                     </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-4.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <img src="/product-5.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-6.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-7.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-8.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-4">
-                    <img src="/product-9.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-10.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-11.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-12.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-            <div class="page-btn">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>&#8594</span>
-            </div>
         </div>
-
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>
 
