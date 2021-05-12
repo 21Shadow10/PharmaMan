@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -641,3 +643,50 @@ form a {
         display: none;
     }
 }
+
+/* index styles */
+.medicines {
+    display: block;
+    margin: 40px 0;
+    padding: 30px;
+  }
+.onemed{
+    margin: 10px 0;
+    border-left: 6px solid rgb(14 212 93);
+    padding: 30px;
+  }
+.medicines h3{
+    color: rgb(14 212 93);;
+    width: 80% ;
+    display: inline-block;
+  }
+
+.btn-a{
+    display: inline;
+    float:right ;
+    background: rgb(14 212 93);;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 30px;
+    transition: background 0.5s;
+}
+.btn-a:hover{
+    background: white;
+    color: rgb(14 212 93); ;
+}
+
+.med-edit form{
+    max-width: 400px;
+    height: 300px;
+    margin: 0 auto;
+  }
+  .med-edit input{
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+  }
+  .med-edit label{
+    display: block;
+    margin-top: 24px;
+  }
