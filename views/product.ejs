@@ -50,11 +50,11 @@
                 </div>
                 <%}%>
                     <div class="page-btn">
-                        <a href="product-1" data-doc="1">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a>&#8594</a>
+                        <button onClick="check()" value="1">1</button>
+                        <button onClick="check">2</button>
+                        <button onClick="check">3</button>
+                        <button onClick="check">4</button>>
+                        <button>&#8594</button>
                     </div>
         </div>
         <!------------Footer-------------->
@@ -63,15 +63,20 @@
 
             <!-----------JS for toggle Menu------------>
             <script>
-                var MenuItems = document.getElementById("MenuItems");
-                MenuItems.style.maxHeight = "0px";
-
-                function menuToggle() {
-                    if (MenuItems.style.maxHeight == "0px") {
-                        MenuItems.style.maxHeight = "200px"
-                    } else {
-                        MenuItems.style.maxHeight = "0px"
-                    }
+                function check() {
+                    var skip = event.target.value
+                    var take = 12
+                    return fetch(
+                            `https:localhost:3000?skip=${skip}&take=${take}`, {
+                                method: "GET ",
+                            }
+                        )
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((jsonResponse) => {
+                            console.log(jsonResponse)
+                        })
                 }
             </script>
 

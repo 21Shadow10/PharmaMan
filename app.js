@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 // express app
 const app = express();
@@ -7,7 +8,15 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-app.listen(3000);
+const dbURI =
+    'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/node-trials?retryWrites=true&w=majority';
+mongoose
+    .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {
+        console.log('connected');
+        app.listen(3000);
+    })
+    .catch((err) => console.log(err));
 
 //Products Grouping
 const products = [{
