@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -644,49 +643,59 @@ form a {
     }
 }
 
+
 /* index styles */
+
 .medicines {
     display: block;
     margin: 40px 0;
     padding: 30px;
-  }
-.onemed{
-    margin: 10px 0;
-    border-left: 6px solid rgb(14 212 93);
-    padding: 30px;
-  }
-.medicines h3{
-    color: rgb(14 212 93);;
-    width: 80% ;
-    display: inline-block;
-  }
+}
 
-.btn-a{
+.onemed {
+    margin: 10px 0;
+    border-left: 6px solid #3b5a73;
+    padding: 30px;
+}
+
+.medicines h3 {
+    color: #3b5a73;
+    ;
+    width: 80%;
+    display: inline-block;
+}
+
+
+/*.btn-a{
     display: inline;
     float:right ;
-    background: rgb(14 212 93);;
+    background: #3b5a73;;
     color: #fff;
     padding: 8px 30px;
     border-radius: 30px;
     transition: background 0.5s;
-}
-.btn-a:hover{
+}*/
+
+.btn-a:hover {
     background: white;
-    color: rgb(14 212 93); ;
+    color: #3b5a73;
+    ;
 }
 
-.med-edit form{
+.med-edit form {
     max-width: 400px;
     height: 300px;
     margin: 0 auto;
-  }
-  .med-edit input{
+}
+
+.med-edit input {
     display: block;
     width: 100%;
     margin: 10px 0;
     padding: 8px;
-  }
-  .med-edit label{
+}
+
+.med-edit label {
     display: block;
     margin-top: 24px;
-  }
+}

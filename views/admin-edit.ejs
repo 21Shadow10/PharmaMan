@@ -3,24 +3,28 @@
 
 <%- include('./partials/head.ejs') %>
 
-<body>
-    <div class="header-2">
-        <div class="container">
-            <%- include('./partials/ad-nav.ejs') %>
-    </div>
+    <body>
+        <div class="header-2">
+            <div class="container">
+                <%- include('./partials/ad-nav.ejs') %>
+            </div>
+        </div>
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>Update Prouct Details</h2>
+            </div>
+            <div class="med-edit">
+                <form action="">
+                    <label for="med-name">Edit Your Product Name: </label>
+                    <input type="text" name="med-name" id="">
+                    <label for="med-price">Edit Your Price($): </label>
+                    <input type="number" name="med-price" id="">
+                    <button class="btn">Update</button>
+                    <button class="btn">Delete</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="med-edit">
-        <h1>Medicine Name</h1>
-        <form action="">
-            <label for="med-name">Edit Your Product Name: </label>
-            <input type="text" name="med-name" id="">
-            <label for="med-price">Edit Your Price($): </label>
-            <input type="number" name="med-price" id="">
-            <button class="btn-a">Edit</button>
-            <button class="btn-a">Delete</button>
-        </form>
-    </div>
-
-    <!------------Footer-------------->
-    <%- include('./partials/footer.ejs') %>
-</body>
+        <!------------Footer-------------->
+        <%- include('./partials/footer.ejs') %>
+    </body>
