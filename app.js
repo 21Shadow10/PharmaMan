@@ -8,7 +8,7 @@ const app = express();
 // listen for requests
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(express.urlencoded( { extended: true })) ;
+app.use(express.urlencoded({ extended: true }));
 
 const dbURI =
     'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/PharmaMan?retryWrites=true&w=majority';
@@ -75,6 +75,24 @@ const products = [{
         name: 'CNF+ Tablets (120mg)',
         stars: 4,
     },
+    {
+        src: '/product-10.jpg',
+        price: '50$',
+        name: 'CNF+ Tablets (120mg)',
+        stars: 4,
+    },
+    {
+        src: '/product-11.jpg',
+        price: '50$',
+        name: 'CNF+ Tablets (120mg)',
+        stars: 5,
+    },
+    {
+        src: '/product-12.jpg',
+        price: '50$',
+        name: 'CNF+ Tablets (120mg)',
+        stars: 4,
+    },
 ];
 const prod = [];
 var chunkSize = 4;
@@ -82,10 +100,14 @@ for (let i = 0; i < products.length; i += chunkSize) {
     const chunk = products.slice(i, i + chunkSize);
     prod.push(chunk);
 }
-console.log(prod);
 //Routing
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home', prod });
+app.get('/', paginatedResults(products), (req, res) => {
+    var prod = res.paginatedResults;
+    var rando = Math.floor(Math.random() * prod.length);
+    var prod1 = prod[rando];
+    var rando1 = Math.floor(Math.random() * (prod.length - 2));
+    var prod2 = prod.slice(rando1, rando1 + 2);
+    res.render('index', { title: 'Home', prod1, prod2 });
 });
 
 app.get('/about', (req, res) => {
@@ -118,15 +140,16 @@ app.get('/admin/add', (req, res) => {
 
 app.post('/admin', (req, res) => {
     console.log(req.body);
-    const product = new Product(req.body) ;
+    const product = new Product(req.body);
 
-    product.save()
+    product
+        .save()
         .then((result) => {
-            res.redirect('/admin/modify') ;
+            res.redirect('/admin/modify');
         })
         .catch((err) => {
-            console.log(err) ;
-        })
+            console.log(err);
+        });
 });
 
 app.get('/admin/:id', (req, res) => {
@@ -134,17 +157,17 @@ app.get('/admin/:id', (req, res) => {
     res.render('admin/edit', { title: 'Edit your Meds' });
 });
 
-app.delete('/admin/:id', (req,res) => {
+app.delete('/admin/:id', (req, res) => {
     const id = req.params.id;
 
     Product.findByIdAndDelete(id)
-        .then(result => {
-            res.json({ redirect: '/admin/modify'})
+        .then((result) => {
+            res.json({ redirect: '/admin/modify' });
         })
         .catch((err) => {
-            console.log(err) ;
-        })
-})
+            console.log(err);
+        });
+});
 
 // 404 page
 app.use((req, res) => {
@@ -162,7 +185,7 @@ function paginatedResults(model) {
             page = parseInt(req.query.page);
             limit = parseInt(req.query.limit);
         }
-        console.log(page + ' ' + limit);
+        //console.log(page + ' ' + limit);
 
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
@@ -178,7 +201,6 @@ function paginatedResults(model) {
                 limit: limit,
             };
         results.results = model.slice(startIndex, endIndex);
-        console.log(results);
         var products = results.results;
         const prod = [];
         var chunkSize = 4;

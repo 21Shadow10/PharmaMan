@@ -28,12 +28,15 @@
                 <div class="row">
                     <div class="col-3">
                         <img src="/category-1.jpg">
+                        <figcaption>Pills</figcaption>
                     </div>
                     <div class="col-3">
                         <img src="/category-2.jpg">
+                        <figcaption>Syrups</figcaption>
                     </div>
                     <div class="col-3">
                         <img src="/category-3.jpg">
+                        <figcaption>Devices</figcaption>
                     </div>
                 </div>
             </div>
@@ -42,204 +45,67 @@
 
         <!---------------Featured Products--------------->
         <div class="small-container">
-            <%for(i=0;i<prod.length;i++) {%>
-                <div class="row">
-                    <%var products=prod[i];%>
-                        <% if (products.length > 0) { %>
-                            <% products.forEach( product => {%>
-                                <div class="col-4">
-                                    <img src="<%- product.src %>">
-                                    <h4>
-                                        <%= product.name %>
-                                    </h4>
-                                    <div class="rating">
-                                        <% for (j = 0; j < product.stars; j++) { %>
-                                            <i class="fa fa-star"></i>
-                                            <%}%>
-                                                <% for (j = 0; j < 5-product.stars; j++) { %>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <%}%>
-
-                                    </div>
-                                    <p>
-                                        <%= product.price %>
-                                    </p>
-                                </div>
-                                <% }) %>
-                                    <% } else { %>
-                                        <p>There are no products to display...</p>
-                                        <% } %>
-                </div>
-                <%}%>
-        </div>
-        <!--raw html-->
-        <div class="small-container">
             <h2 class="title">Featured Products</h2>
             <div class="row">
-                <div class="col-4">
-                    <img src="/product-1.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
+                <% if (prod1.length > 0) { %>
+                    <% prod1.forEach( product => {%>
+                        <div class="col-4">
+                            <img src="<%- product.src %>">
+                            <h4>
+                                <%= product.name %>
+                            </h4>
+                            <div class="rating">
+                                <% for (j = 0; j < product.stars; j++) { %>
+                                    <i class="fa fa-star"></i>
+                                    <%}%>
+                                        <% for (j = 0; j < 5-product.stars; j++) { %>
+                                            <i class="fa fa-star-o"></i>
+                                            <%}%>
 
-                <div class="col-4">
-                    <img src="/product-2.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <a href="/product-details"><img src="/product-3.jpg"></a>
-                    <a href="/product-details">
-                        <h4>CNF+ Tablets (120mg)</h4>
-                    </a>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-4.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
+                            </div>
+                            <p>
+                                <%= product.price %>
+                            </p>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <p>There are no products to display...</p>
+                                <% } %>
             </div>
 
             <h2 class="title">Latest Products</h2>
-            <div class="row">
-                <div class="col-4">
-                    <img src="/product-5.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
+            <%if(prod2.length>0) {%>
+                <%for(i=0;i<prod2.length;i++) {%>
+                    <div class="row">
+                        <%var products=prod2[i];%>
+                            <% if (products.length > 0) { %>
+                                <% products.forEach( product => {%>
+                                    <div class="col-4">
+                                        <img src="<%- product.src %>">
+                                        <h4>
+                                            <%= product.name %>
+                                        </h4>
+                                        <div class="rating">
+                                            <% for (j = 0; j < product.stars; j++) { %>
+                                                <i class="fa fa-star"></i>
+                                                <%}%>
+                                                    <% for (j = 0; j < 5-product.stars; j++) { %>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <%}%>
 
-                <div class="col-4">
-                    <img src="/product-6.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
+                                        </div>
+                                        <p>
+                                            <%= product.price %>
+                                        </p>
 
-                <div class="col-4">
-                    <img src="/product-7.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
+                                    </div>
+                                    <% }) %>
+                                        <% }%>
                     </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-8.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-4">
-                    <img src="/product-9.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-10.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-11.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-
-                <div class="col-4">
-                    <img src="/product-12.jpg">
-                    <h4>CNF+ Tablets (120mg)</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-
+                    <%}} else { %>
+                        <p>There are no products to display... Try to go back a page</p>
+                        <br />
+                        <% } %>
 
         </div>
 
