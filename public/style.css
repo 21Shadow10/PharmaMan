@@ -682,28 +682,20 @@ form a {
     ;
 }
 
-.med-edit form,
 .med-add form {
     max-width: 400px;
-    height: 300px;
     margin: 0 auto;
+    min-height: 800px;
 }
 
-.med-edit input,
-.med-add form {
+.med-add input {
     display: block;
     width: 100%;
     margin: 10px 0;
     padding: 8px;
 }
 
-.med-edit label,
-.med-add form {
+.med-add label {
     display: block;
     margin-top: 24px;
-}
-
-.med-add form {
-    max-width: 800px;
-    height: 600px;
 }

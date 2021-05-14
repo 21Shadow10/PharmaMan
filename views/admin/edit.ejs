@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include('../partials/head.ejs') %>
+<%- include('../partials/head.ejs') %>
 
     <body>
         <div class="header-2">
@@ -9,20 +9,23 @@
                 <%- include('../partials/ad-nav.ejs') %>
             </div>
         </div>
-        <div class="small-container">
-            <div class="row row-2">
-                <h2>Update Product Details</h2>
-            </div>
-            <div class="med-edit">
-                <form action="">
-                    <label for="med-name">Edit Your Product Name: </label>
-                    <input type="text" name="med-name" id="">
-                    <label for="med-price">Edit Your Price($): </label>
-                    <input type="number" name="med-price" id="">
-                    <button class="btn">Update</button>
-                    <button class="btn">Delete</button>
-                </form>
-            </div>
+
+        <div class="med-add">
+            <form action="" method="POST">
+                <label for="name">Enter Your Medicine Name: </label>
+                <input type="text" name="name" id="name">
+                <label for="price">Enter Your Price($): </label>
+                <input type="number" name="price" id="price">
+                <label for="src">Enter Your Medicine Image Link: </label>
+                <input type="text" name="src" id="src">
+                <label for="desc">Describe your product: </label><br>
+                <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+                <br>
+                <label for="type">Enter Your Medicine Type: </label>
+                <input type="text" name="type" id="type">
+                <br>
+                <button class="btn">Add</button>
+            </form>
         </div>
 
         <!------------Footer-------------->
