@@ -30,6 +30,7 @@
                         </h3>
                         <!--Add Product ID-->
                         <a href="/admin/452251563231"><button class="btn">Edit</button></a>
+                        <a class="delete" data-doc="609e094f5186821c902f0780"><button class="btn">Delete</button></a>
                     </div>
                     <br>
                     <% })
@@ -40,4 +41,20 @@
 
         <!------------Footer-------------->
         <%- include('../partials/footer.ejs') %>
+
+
+        <script>
+            const trashcan = document.querySelector('a.delete') ;
+
+            trashcan.addEventListener('click', (e) => {
+                const endpoint = `/admin/${trashcan.dataset.doc}` ;
+
+                fetch(endpoint, {
+                    method: 'DELETE'
+                })
+                .then((response) => response.json())
+                .then((data) => console.log(data))
+                .catch(err => console.log(err))
+            })
+        </script>
     </body>

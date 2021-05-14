@@ -134,6 +134,18 @@ app.get('/admin/:id', (req, res) => {
     res.render('admin/edit', { title: 'Edit your Meds' });
 });
 
+app.delete('/admin/:id', (req,res) => {
+    const id = req.params.id;
+
+    Product.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/admin/modify'})
+        })
+        .catch((err) => {
+            console.log(err) ;
+        })
+})
+
 // 404 page
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
