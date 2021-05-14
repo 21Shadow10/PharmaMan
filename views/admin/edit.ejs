@@ -11,22 +11,22 @@
         </div>
 
         <div class="med-add">
-            <form action="" method="POST">
+            <form action="/admin/edit/<%= product._id %>" method="POST">
                 <label for="name">Enter Your Medicine Name: </label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="<%= product.name %>">
                 <label for="price">Enter Your Price($): </label>
-                <input type="number" name="price" id="price">
+                <input type="number" name="price" id="price" value="<%= product.price %>">
                 <label for="src">Enter Your Medicine Image Link: </label>
-                <input type="text" name="src" id="src">
+                <input type="text" name="src" id="src" value="<%= product.src %>">
                 <label for="desc">Describe your product: </label><br>
-                <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+                <textarea name="desc" type="text"id="desc" cols="30" rows="10"><%= product.desc %></textarea>
                 <br>
                 <label for="rating">Enter the Product rating:</label>
-                <input type="number" name="rating" id="rating">
+                <input type="number" name="rating" id="rating" value="<%= product.rating %>">
                 <label for="type">Enter Your Medicine Type: </label>
-                <input type="text" name="type" id="type">
+                <input type="text" name="type" id="type" value="<%= product.type %>">
                 <br>
-                <button class="btn">Edit</button>
+                <button class="btn" type="submit">Edit</button>
             </form>
         </div>
 

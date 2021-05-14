@@ -179,8 +179,45 @@ app.post('/admin', (req, res) => {
 
 app.get('/admin/:id', (req, res) => {
     const id = req.params.id;
-    res.render('admin/edit', { title: 'Edit your Meds' });
+    Product.findById(id)
+        .then((result) => {
+            res.render('admin/edit', { title: 'Edit your Meds', product: result}) ;
+        })
+        .catch((err) => {
+            console.log(err) ;
+        })
 });
+
+app.post('/admin/edit/:id', (req,res) => {
+    const id = req.params.id ;
+    const product = req.body ;
+
+    Product.findOne({_id: id}, (err,foundObject) => {
+        if(err){
+            console.log(err);
+        } else {
+            if(!foundObject){
+                res.status(404).render('404', { title: '404' }) ;
+            } else {
+                foundObject.name = product.name ;
+                foundObject.price = product.price ;
+                foundObject.src = product.src ;
+                foundObject.desc = product.desc ;
+                foundObject.rating = product.rating ;
+                foundObject.type = product.type ;
+
+                foundObject.save((err,updateObject) => {
+                    if(err){
+                        console.log(err) ;
+                    }
+                    else{
+                        res.redirect('/admin/modify') ;
+                    }
+                })
+            }  
+        }
+    })
+})
 
 app.delete('/admin/:id', (req, res) => {
     const id = req.params.id;
