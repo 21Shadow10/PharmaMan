@@ -21,109 +21,118 @@ mongoose
     .catch((err) => console.log(err));
 
 //Products Grouping
+
 const products = [{
         src: '/product-1.jpg',
         name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        price: 50,
         rating: 5,
         desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
         type: 'pill',
     },
     {
         src: '/product-2.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
-        rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        name: 'Amoxicillin',
+        price: 10,
+        rating: 2,
+        desc: 'It can treat strep throat as well as childhood pneumonia, ear infections, and sinus infections, especially when used at high-dose levels',
         type: 'pill',
     },
     {
         src: '/product-3.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Azithromycin',
+        price: 5,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'It is often prescribed for ear infections.',
         type: 'pill',
     },
     {
         src: '/product-4.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Albuterol',
+        price: 15,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'The syrup form of albuterol is very rarely used by most pediatricians.',
         type: 'pill',
     },
     {
         src: '/product-5.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Cefdinir',
+        price: 16,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Omnicef (cefdinir) is a broad spectrum third-generation cephalosporin that is commonly used to treat sinus infections, ear infections, and pneumonia. Cefdinir is not usually considered to be a first-line treatment.',
         type: 'pill',
     },
     {
         src: '/product-6.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
-        rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        name: 'Cephalexin',
+        price: 7,
+        rating: 3,
+        desc: 'Keflex (cephalexin) is an antibiotic used to treat a range of bacterial infections, including strep throat, pneumonia, skin infections (cellulitis and impetigo), and bone and joint infections.',
         type: 'pill',
     },
     {
         src: '/product-7.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
-        rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        name: 'Fluticasone',
+        price: 15,
+        rating: 4,
+        desc: 'Fluticasone is a steroid that is the main ingredient in many different medications, including Flonase nasal spray (generic), Flovent MDI, Cutivate cream and ointment (generic), and Veramyst nasal spray.',
         type: 'pill',
     },
     {
         src: '/product-8.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Prednisolone Sodium Phosphate',
+        price: 30,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Available in both a 25 milligram/5 milliliter and 15 milligram/5 milliliter syrup, prednisolone is a liquid steroid that is commonly used to treat asthma flare-ups, poison ivy reactions, croup, and other corticosteroid-responsive disorders.',
         type: 'pill',
     },
     {
         src: '/product-9.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Ibuprofen',
+        price: 3,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) that is commonly used to treat fever, pain, and inflammation in children.',
         type: 'pill',
     },
     {
         src: '/product-10.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Singulair ',
+        price: 13,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Singulair (montelukast sodium) is a leukotriene receptor antagonist and is approved to prevent and treat asthma, prevent exercise-induced asthma, and relieve symptoms of seasonal allergic rhinitis and perennial allergic rhinitis. ',
         type: 'pill',
     },
     {
         src: '/product-11.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Trimethoprim',
+        price: 10,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Bactrim or Septra (trimethoprim/sulfamethoxazole) is an older antibiotic that is most commonly used to treat urinary tract infections, except when resistance might be a problem.',
         type: 'pill',
     },
     {
         src: '/product-12.jpg',
-        name: 'CNF+ Tablets (120mg)',
-        price: '50$',
+        name: 'Vicodin',
+        price: 15,
         rating: 5,
-        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        desc: 'Under the brand names of Vicodin, Lortab, and Norco, hydrocodone bitartrate/acetaminophen is a narcotic pain reliever with Tylenol (acetaminophen). It is more potent than codeine.',
         type: 'pill',
     },
 ];
-const prod = [];
-var chunkSize = 4;
-for (let i = 0; i < products.length; i += chunkSize) {
-    const chunk = products.slice(i, i + chunkSize);
-    prod.push(chunk);
-}
+/*Product.insertMany(products)
+    .then(function() {
+        console.log('Data inserted'); // Success
+    })
+    .catch(function(error) {
+        console.log(error); // Failure
+    });*/
+/*Product.deleteMany({ type: 'pill' })
+	.then(function () {
+		console.log('Data Deleted'); // Success
+	})
+	.catch(function (error) {
+		console.log(error); // Failure
+	});*/
 //Routing
 app.get('/', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults;
@@ -138,20 +147,31 @@ app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
 });
 
-app.get('/product', paginatedResults(Product), (req, res) => {
+app.get('/products', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults;
     console.log(prod);
     res.render('product', { title: 'Products', prod });
 });
-
+app.get('/products/:id', (req, res) => {
+    const id = req.params.id;
+    Product.findById(id)
+        .then((result) => {
+            console.log(result);
+            res.render('product-details', {
+                product: result,
+                title: 'Product Details',
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.render('404', { title: 'Product not found' });
+        });
+});
 app.get('/account', (req, res) => {
     res.render('account', { title: 'Account' });
 });
 app.get('/cart', (req, res) => {
     res.render('cart', { title: 'Cart' });
-});
-app.get('/product-details', (req, res) => {
-    res.render('product-details', { title: 'Product-details' });
 });
 
 // Admin Pages
@@ -242,7 +262,7 @@ function paginatedResults(model) {
         var limit;
         if (req.query.page == undefined && req.query.limit == undefined) {
             page = 1;
-            limit = 12;
+            limit = 8;
         } else {
             page = parseInt(req.query.page);
             limit = parseInt(req.query.limit);

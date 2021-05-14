@@ -27,10 +27,12 @@
                             <% if (products.length > 0) { %>
                                 <% products.forEach( product => {%>
                                     <div class="col-4">
-                                        <img src="<%- product.src %>">
-                                        <h4>
-                                            <%= product.name %>
-                                        </h4>
+                                        <a class="single" href="/products/<%=product._id %>">
+                                            <img src="<%- product.src %>">
+                                            <h4>
+                                                <%= product.name %>
+                                            </h4>
+                                        </a>
                                         <div class="rating">
                                             <% for (j = 0; j < product.rating; j++) { %>
                                                 <i class="fa fa-star"></i>
@@ -41,7 +43,7 @@
 
                                         </div>
                                         <p>
-                                            <%= product.price %>
+                                            <%= product.price %>$
                                         </p>
 
                                     </div>
@@ -71,10 +73,10 @@
                 function check(event) {
 
                     var skip = event.target.value
-                    var take = 4
+                    var take = 8
                     const set = document.querySelector('div.page-btn');
                     set.onclick = function() {
-                        location.href = `/product?page=${skip}&limit=${take}`
+                        location.href = `/products?page=${skip}&limit=${take}`
                     }
 
                 }
