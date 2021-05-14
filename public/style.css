@@ -376,7 +376,7 @@ select:focus {
     margin: 0 auto 80px;
 }
 
-.page-btn a {
+.page-btn button {
     display: inline-block;
     border: 1px solid #3b5a73;
     margin-left: 10px;
@@ -387,7 +387,7 @@ select:focus {
     cursor: pointer;
 }
 
-.page-btn a:hover {
+.page-btn button:hover {
     background: #3b5a73;
     color: white;
 }

@@ -20,42 +20,47 @@
                 <option>Sort by rating</option>
             </Select>
             </div>
-            <%for(i=0;i<prod.length;i++) {%>
-                <div class="row">
-                    <%var products=prod[i];%>
-                        <% if (products.length > 0) { %>
-                            <% products.forEach( product => {%>
-                                <div class="col-4">
-                                    <img src="<%- product.src %>">
-                                    <h4>
-                                        <%= product.name %>
-                                    </h4>
-                                    <div class="rating">
-                                        <% for (j = 0; j < product.stars; j++) { %>
-                                            <i class="fa fa-star"></i>
-                                            <%}%>
-                                                <% for (j = 0; j < 5-product.stars; j++) { %>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <%}%>
+            <%if(prod.length>0) {%>
+                <%for(i=0;i<prod.length;i++) {%>
+                    <div class="row">
+                        <%var products=prod[i];%>
+                            <% if (products.length > 0) { %>
+                                <% products.forEach( product => {%>
+                                    <div class="col-4">
+                                        <img src="<%- product.src %>">
+                                        <h4>
+                                            <%= product.name %>
+                                        </h4>
+                                        <div class="rating">
+                                            <% for (j = 0; j < product.stars; j++) { %>
+                                                <i class="fa fa-star"></i>
+                                                <%}%>
+                                                    <% for (j = 0; j < 5-product.stars; j++) { %>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <%}%>
+
+                                        </div>
+                                        <p>
+                                            <%= product.price %>
+                                        </p>
 
                                     </div>
-                                    <p>
-                                        <%= product.price %>
-                                    </p>
-                                </div>
-                                <% }) %>
-                                    <% } else { %>
-                                        <p>There are no products to display...</p>
-                                        <% } %>
-                </div>
-                <%}%>
-                    <div class="page-btn">
-                        <button onClick="check()" value="1">1</button>
-                        <button onClick="check">2</button>
-                        <button onClick="check">3</button>
-                        <button onClick="check">4</button>>
-                        <button>&#8594</button>
+                                    <% }) %>
+                                        <% }%>
                     </div>
+                    <%}} else { %>
+                        <p>There are no products to display... Try to go back a page</p>
+                        <br />
+                        <% } %>
+
+
+                            <div class="page-btn">
+                                <button onClick="check(event)" value="1">1</button>
+                                <button onClick="check(event)" value="2">2</button>
+                                <button onClick="check(event)" value="3">3</button>
+                                <button onClick="check(event)" value="4">4</button>
+
+                            </div>
         </div>
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>
@@ -63,20 +68,15 @@
 
             <!-----------JS for toggle Menu------------>
             <script>
-                function check() {
+                function check(event) {
+
                     var skip = event.target.value
-                    var take = 12
-                    return fetch(
-                            `https:localhost:3000?skip=${skip}&take=${take}`, {
-                                method: "GET ",
-                            }
-                        )
-                        .then((response) => {
-                            return response.json();
-                        })
-                        .then((jsonResponse) => {
-                            console.log(jsonResponse)
-                        })
+                    var take = 4
+                    const set = document.querySelector('div.page-btn');
+                    set.onclick = function() {
+                        location.href = `/product?page=${skip}&limit=${take}`
+                    }
+
                 }
             </script>
 

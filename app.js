@@ -74,12 +74,6 @@ const products = [{
         stars: 4,
     },
 ];
-const prod = [];
-var chunkSize = 4;
-for (let i = 0; i < products.length; i += chunkSize) {
-    const chunk = products.slice(i, i + chunkSize);
-    prod.push(chunk);
-}
 
 //Routing
 app.get('/', (req, res) => {
@@ -90,8 +84,9 @@ app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
 });
 
-app.get('/product', (req, res) => {
-    res.render('product', { title: 'Product', prod });
+app.get('/product', paginatedResults(products), (req, res) => {
+    var prod = res.paginatedResults;
+    res.render('product', { title: 'Products', prod });
 });
 
 app.get('/account', (req, res) => {
@@ -118,3 +113,43 @@ app.get('/admin/:id', (req, res) => {
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });
+
+function paginatedResults(model) {
+    return (req, res, next) => {
+        var page;
+        var limit;
+        if (req.query.page == undefined && req.query.limit == undefined) {
+            page = 1;
+            limit = 12;
+        } else {
+            page = parseInt(req.query.page);
+            limit = parseInt(req.query.limit);
+        }
+        console.log(page + ' ' + limit);
+
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {};
+        if (endIndex < model.length)
+            results.next = {
+                page: page + 1,
+                limit: limit,
+            };
+        if (startIndex > 0)
+            results.previous = {
+                page: page - 1,
+                limit: limit,
+            };
+        results.results = model.slice(startIndex, endIndex);
+        console.log(results);
+        var products = results.results;
+        const prod = [];
+        var chunkSize = 4;
+        for (let i = 0; i < products.length; i += chunkSize) {
+            const chunk = products.slice(i, i + chunkSize);
+            prod.push(chunk);
+        }
+        res.paginatedResults = prod;
+        next();
+    };
+}
