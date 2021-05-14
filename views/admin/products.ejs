@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./partials/head.ejs') %>
+<%- include('../partials/head.ejs') %>
 
     <body>
         <div class="header-2">
             <div class="container">
-                <%- include('./partials/ad-nav.ejs') %>
+                <%- include('../partials/ad-nav.ejs') %>
             </div>
+        </div>
+
+        <div class="add">
+            <center>
+                <a href="/admin/add">
+                    <button class="btn">Add Medicine</button>
+                </a>
+            </center>
         </div>
 
         <div class="small-container">
@@ -31,5 +39,5 @@
         </div>
 
         <!------------Footer-------------->
-        <%- include('./partials/footer.ejs') %>
+        <%- include('../partials/footer.ejs') %>
     </body>

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Product = require('./models/product') ;
 
 // express app
 const app = express();
@@ -9,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 const dbURI =
-    'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/node-trials?retryWrites=true&w=majority';
+    'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/PharmaMan?retryWrites=true&w=majority';
 mongoose
     .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
@@ -100,13 +101,30 @@ app.get('/product-details', (req, res) => {
 });
 
 // Admin Pages
-app.get('/admin-product', (req, res) => {
-    res.render('admin-product', { title: 'Products-Admin', prod });
+app.get('/admin/products', (req, res) => {
+    res.render('admin/products', { title: 'Products-Admin', prod });
 });
+
+app.get('/admin/add', (req,res) => {
+    res.render('admin/add', { title: 'Add New Products' })
+})
+
+app.post('/admin' ,(req,res) => {
+    console.log(req.body) ;
+    //const product = new Product(req.body) ;
+
+    /*product.save()
+        .then((result) => {
+            res.redirect('/admin/products') ;
+        })
+        .catch((err) => {
+            console.log(err) ;
+        })*/
+})
 
 app.get('/admin/:id', (req, res) => {
     const id = req.params.id;
-    res.render('admin-edit', { title: 'Edit your Meds' });
+    res.render('admin/edit', { title: 'Edit your Meds' });
 });
 
 // 404 page
