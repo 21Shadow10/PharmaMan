@@ -23,75 +23,99 @@ mongoose
 //Products Grouping
 const products = [{
         src: '/product-1.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 5,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-2.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-3.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 5,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-4.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-5.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-6.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 5,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-7.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-8.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 5,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-9.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-10.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-11.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 5,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
     {
         src: '/product-12.jpg',
-        price: '50$',
         name: 'CNF+ Tablets (120mg)',
-        stars: 4,
+        price: '50$',
+        rating: 5,
+        desc: 'This is a very nice ointment cream. Which provides instant relief from stuff',
+        type: 'pill',
     },
 ];
 const prod = [];
@@ -101,7 +125,7 @@ for (let i = 0; i < products.length; i += chunkSize) {
     prod.push(chunk);
 }
 //Routing
-app.get('/', paginatedResults(products), (req, res) => {
+app.get('/', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults;
     var rando = Math.floor(Math.random() * prod.length);
     var prod1 = prod[rando];
@@ -114,8 +138,9 @@ app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
 });
 
-app.get('/product', paginatedResults(products), (req, res) => {
+app.get('/product', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults;
+    console.log(prod);
     res.render('product', { title: 'Products', prod });
 });
 
@@ -175,7 +200,7 @@ app.use((req, res) => {
 });
 
 function paginatedResults(model) {
-    return (req, res, next) => {
+    return async(req, res, next) => {
         var page;
         var limit;
         if (req.query.page == undefined && req.query.limit == undefined) {
@@ -190,25 +215,31 @@ function paginatedResults(model) {
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const results = {};
-        if (endIndex < model.length)
+        if (endIndex < (await model.countDocuments().exec())) {
             results.next = {
                 page: page + 1,
                 limit: limit,
             };
-        if (startIndex > 0)
+        }
+        if (startIndex > 0) {
             results.previous = {
                 page: page - 1,
                 limit: limit,
             };
-        results.results = model.slice(startIndex, endIndex);
-        var products = results.results;
-        const prod = [];
-        var chunkSize = 4;
-        for (let i = 0; i < products.length; i += chunkSize) {
-            const chunk = products.slice(i, i + chunkSize);
-            prod.push(chunk);
         }
-        res.paginatedResults = prod;
-        next();
+        try {
+            results.results = await model.find().limit(limit).skip(startIndex).exec();
+            var products = results.results;
+            const prod = [];
+            var chunkSize = 4;
+            for (let i = 0; i < products.length; i += chunkSize) {
+                const chunk = products.slice(i, i + chunkSize);
+                prod.push(chunk);
+            }
+            res.paginatedResults = prod;
+            next();
+        } catch (e) {
+            res.status(500).json({ message: e.message });
+        }
     };
 }
