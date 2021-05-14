@@ -8,6 +8,7 @@ const app = express();
 // listen for requests
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.urlencoded( { extended: true })) ;
 
 const dbURI =
     'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/PharmaMan?retryWrites=true&w=majority';
@@ -117,15 +118,15 @@ app.get('/admin/add', (req, res) => {
 
 app.post('/admin', (req, res) => {
     console.log(req.body);
-    //const product = new Product(req.body) ;
+    const product = new Product(req.body) ;
 
-    /*product.save()
+    product.save()
         .then((result) => {
-            res.redirect('/admin/products') ;
+            res.redirect('/admin/modify') ;
         })
         .catch((err) => {
             console.log(err) ;
-        })*/
+        })
 });
 
 app.get('/admin/:id', (req, res) => {
