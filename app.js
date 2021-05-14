@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
-
+const User = require('./models/user');
+const Cart = require('./models/cart');
 // express app
 const app = express();
 
@@ -168,9 +169,6 @@ app.get('/products/:id', (req, res) => {
 app.get('/account', (req, res) => {
     res.render('account', { title: 'Account' });
 });
-app.get('/cart', (req, res) => {
-    res.render('cart', { title: 'Cart' });
-});
 
 // Admin Pages
 app.get('/admin/modify', (req, res) => {
@@ -189,7 +187,7 @@ app.get('/admin/add', (req, res) => {
 
 app.post('/admin', (req, res) => {
     const product = new Product(req.body);
-
+    console.log(product);
     product
         .save()
         .then((result) => {
@@ -253,6 +251,41 @@ app.delete('/admin/:id', (req, res) => {
         });
 });
 
+app.post('/cart/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(req.body);
+    req.body.username = 'abc';
+    req.body._productid = id;
+    const cart = new Cart(req.body);
+    console.log(cart);
+    cart
+        .save()
+        .then((result) => {
+            res.redirect('/cart');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+app.get('/cart', (req, res) => {
+    console.log('entered requsetes');
+    /*Cart.find()
+           .then((result) => {
+               console.log('results' + result);
+               res.render('cart', { title: 'Cart', result });
+           })
+           .catch((err) => {
+               console.log(err);
+           });*/
+    Cart.find({})
+        .populate('_productid') // only works if we pushed refs to person.eventsAttended
+        .exec(function(err, products) {
+            if (err) return handleError(err);
+            console.log('P' + products);
+            res.render('cart', { title: 'Cart', products });
+        });
+});
 // 404 page
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
