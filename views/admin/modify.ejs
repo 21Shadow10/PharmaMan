@@ -20,22 +20,21 @@
 
         <div class="small-container">
             <div class="medicines">
-                <% for(let i=0;i<prod.length;i++) {
-            let products = prod[i] ;
-            if(products.length>0) {
+                <% if(products.length>0) {
                 products.forEach(product => { %>
                     <div class="onemed">
                         <h3>
                             <%= product.name %>
                         </h3>
                         <!--Add Product ID-->
-                        <a href="/admin/609e77ab3b12c81e84465bd5"><button class="btn">Edit</button></a>
-                        <a class="delete" data-doc="609e094f5186821c902f0780"><button class="btn">Delete</button></a>
+                        <a href="/admin/<%=product._id%>"><button class="btn">Edit</button></a>
+                        <a class="delete" data-doc="<%=product._id%>">
+                            <button class="btn">Delete</button>
+                        </a>
                     </div>
                     <br>
                     <% })
-            }
-        } %>
+                 } %>
             </div>
         </div>
 
@@ -43,18 +42,18 @@
         <%- include('../partials/footer.ejs') %>
 
 
-        <script>
-            const trashcan = document.querySelector('a.delete') ;
+            <script>
+                const trashcan = document.querySelector('a.delete');
 
-            trashcan.addEventListener('click', (e) => {
-                const endpoint = `/admin/${trashcan.dataset.doc}` ;
+                trashcan.addEventListener('click', (e) => {
+                    const endpoint = `/admin/${trashcan.dataset.doc}`;
 
-                fetch(endpoint, {
-                    method: 'DELETE'
+                    fetch(endpoint, {
+                            method: 'DELETE'
+                        })
+                        .then((response) => response.json())
+                        .then((data) => window.location.href = data.redirect)
+                        .catch(err => console.log(err))
                 })
-                .then((response) => response.json())
-                .then((data) => console.log(data))
-                .catch(err => console.log(err))
-            })
-        </script>
+            </script>
     </body>

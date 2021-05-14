@@ -149,14 +149,12 @@ app.get('/about', (req, res) => {
 
 app.get('/products', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults;
-    console.log(prod);
     res.render('product', { title: 'Products', prod });
 });
 app.get('/products/:id', (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
-            console.log(result);
             res.render('product-details', {
                 product: result,
                 title: 'Product Details',
@@ -176,7 +174,13 @@ app.get('/cart', (req, res) => {
 
 // Admin Pages
 app.get('/admin/modify', (req, res) => {
-    res.render('admin/modify', { title: 'Modify', prod });
+    Product.find()
+        .then((result) => {
+            res.render('admin/modify', { title: 'Modify', products: result });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 app.get('/admin/add', (req, res) => {
@@ -184,7 +188,6 @@ app.get('/admin/add', (req, res) => {
 });
 
 app.post('/admin', (req, res) => {
-    console.log(req.body);
     const product = new Product(req.body);
 
     product
@@ -201,47 +204,46 @@ app.get('/admin/:id', (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
-            res.render('admin/edit', { title: 'Edit your Meds', product: result}) ;
+            res.render('admin/edit', { title: 'Edit your Meds', product: result });
         })
         .catch((err) => {
-            console.log(err) ;
-        })
+            console.log(err);
+        });
 });
 
-app.post('/admin/edit/:id', (req,res) => {
-    const id = req.params.id ;
-    const product = req.body ;
+app.post('/admin/edit/:id', (req, res) => {
+    const id = req.params.id;
+    const product = req.body;
 
-    Product.findOne({_id: id}, (err,foundObject) => {
-        if(err){
+    Product.findOne({ _id: id }, (err, foundObject) => {
+        if (err) {
             console.log(err);
         } else {
-            if(!foundObject){
-                res.status(404).render('404', { title: '404' }) ;
+            if (!foundObject) {
+                res.status(404).render('404', { title: '404' });
             } else {
-                foundObject.name = product.name ;
-                foundObject.price = product.price ;
-                foundObject.src = product.src ;
-                foundObject.desc = product.desc ;
-                foundObject.rating = product.rating ;
-                foundObject.type = product.type ;
+                foundObject.name = product.name;
+                foundObject.price = product.price;
+                foundObject.src = product.src;
+                foundObject.desc = product.desc;
+                foundObject.rating = product.rating;
+                foundObject.type = product.type;
 
-                foundObject.save((err,updateObject) => {
-                    if(err){
-                        console.log(err) ;
+                foundObject.save((err, updateObject) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.redirect('/admin/modify');
                     }
-                    else{
-                        res.redirect('/admin/modify') ;
-                    }
-                })
-            }  
+                });
+            }
         }
-    })
-})
+    });
+});
 
 app.delete('/admin/:id', (req, res) => {
     const id = req.params.id;
-
+    console.log(id);
     Product.findByIdAndDelete(id)
         .then((result) => {
             res.json({ redirect: '/admin/modify' });
