@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Product = require('./models/product') ;
+const Product = require('./models/product');
 
 // express app
 const app = express();
@@ -75,7 +75,13 @@ const products = [{
         stars: 4,
     },
 ];
-
+const prod = [];
+var chunkSize = 4;
+for (let i = 0; i < products.length; i += chunkSize) {
+    const chunk = products.slice(i, i + chunkSize);
+    prod.push(chunk);
+}
+console.log(prod);
 //Routing
 app.get('/', (req, res) => {
     res.render('index', { title: 'Home', prod });
@@ -101,16 +107,16 @@ app.get('/product-details', (req, res) => {
 });
 
 // Admin Pages
-app.get('/admin/products', (req, res) => {
-    res.render('admin/products', { title: 'Products-Admin', prod });
+app.get('/admin/modify', (req, res) => {
+    res.render('admin/modify', { title: 'Modify', prod });
 });
 
-app.get('/admin/add', (req,res) => {
-    res.render('admin/add', { title: 'Add New Products' })
-})
+app.get('/admin/add', (req, res) => {
+    res.render('admin/add', { title: 'Add New Products' });
+});
 
-app.post('/admin' ,(req,res) => {
-    console.log(req.body) ;
+app.post('/admin', (req, res) => {
+    console.log(req.body);
     //const product = new Product(req.body) ;
 
     /*product.save()
@@ -120,7 +126,7 @@ app.post('/admin' ,(req,res) => {
         .catch((err) => {
             console.log(err) ;
         })*/
-})
+});
 
 app.get('/admin/:id', (req, res) => {
     const id = req.params.id;

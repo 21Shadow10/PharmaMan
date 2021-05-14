@@ -645,7 +645,7 @@ form a {
 }
 
 
-/* index styles */
+/* admin styles */
 
 .medicines {
     display: block;
@@ -665,16 +665,16 @@ form a {
     display: inline-block;
 }
 
-
-/*.btn-a{
+.btn-a {
     display: inline;
-    float:right ;
-    background: #3b5a73;;
+    float: right;
+    background: #3b5a73;
+    ;
     color: #fff;
     padding: 8px 30px;
     border-radius: 30px;
     transition: background 0.5s;
-}*/
+}
 
 .btn-a:hover {
     background: white;
@@ -682,25 +682,28 @@ form a {
     ;
 }
 
-.med-edit form, .med-add form {
+.med-edit form,
+.med-add form {
     max-width: 400px;
     height: 300px;
     margin: 0 auto;
 }
 
-.med-edit input, .med-add form{
+.med-edit input,
+.med-add form {
     display: block;
     width: 100%;
     margin: 10px 0;
     padding: 8px;
 }
 
-.med-edit label, .med-add form {
+.med-edit label,
+.med-add form {
     display: block;
     margin-top: 24px;
 }
 
-.med-add form{
+.med-add form {
     max-width: 800px;
-    height: 600px ;
+    height: 600px;
 }
