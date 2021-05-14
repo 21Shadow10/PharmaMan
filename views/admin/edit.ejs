@@ -19,7 +19,7 @@
                 <label for="src">Enter Your Medicine Image Link: </label>
                 <input type="text" name="src" id="src" value="<%= product.src %>">
                 <label for="desc">Describe your product: </label><br>
-                <textarea name="desc" type="text"id="desc" cols="30" rows="10"><%= product.desc %></textarea>
+                <textarea name="desc" type="text" id="desc" cols="30" rows="10"><%= product.desc %></textarea>
                 <br>
                 <label for="rating">Enter the Product rating:</label>
                 <input type="number" name="rating" id="rating" value="<%= product.rating %>">
@@ -27,9 +27,28 @@
                 <input type="text" name="type" id="type" value="<%= product.type %>">
                 <br>
                 <button class="btn" type="submit">Edit</button>
+                <a class="delete" data-doc="<%=product._id%>">
+                    <button class="btn">Delete</button>
+                </a>
             </form>
         </div>
 
         <!------------Footer-------------->
         <%- include('../partials/footer.ejs') %>
     </body>
+    <script>
+        const trashcan = document.querySelector('a.delete');
+
+        trashcan.addEventListener('click', (e) => {
+            const endpoint = `/admin/${trashcan.dataset.doc}`;
+
+            fetch(endpoint, {
+                    method: 'DELETE'
+                })
+                .then((response) => response.json())
+                .then((data) => window.location.href = data.redirect)
+                .catch(err => console.log(err))
+        })
+    </script>
+
+</html>

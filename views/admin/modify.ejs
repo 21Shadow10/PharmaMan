@@ -28,9 +28,7 @@
                         </h3>
                         <!--Add Product ID-->
                         <a href="/admin/<%=product._id%>"><button class="btn">Edit</button></a>
-                        <a class="delete" data-doc="<%=product._id%>">
-                            <button class="btn">Delete</button>
-                        </a>
+
                     </div>
                     <br>
                     <% })
@@ -42,18 +40,5 @@
         <%- include('../partials/footer.ejs') %>
 
 
-            <script>
-                const trashcan = document.querySelector('a.delete');
 
-                trashcan.addEventListener('click', (e) => {
-                    const endpoint = `/admin/${trashcan.dataset.doc}`;
-
-                    fetch(endpoint, {
-                            method: 'DELETE'
-                        })
-                        .then((response) => response.json())
-                        .then((data) => window.location.href = data.redirect)
-                        .catch(err => console.log(err))
-                })
-            </script>
     </body>
