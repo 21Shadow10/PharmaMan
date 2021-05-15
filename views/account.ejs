@@ -26,16 +26,24 @@
                                 <input type="email" placeholder="Email" required>
                                 <button type="submit" class="btn">Submit</button>
                             </form>
-                            <form id="LoginForm">
-                                <input type="text" placeholder="Username" required>
-                                <input type="password" placeholder="Password" required>
+                            <form id="LoginForm" action="/account/login" method="POST">
+                                <label for="username"></label>
+                                <input type="text" placeholder="Username" id="username" name="username" required>
+                                <label for="email"></label>
+                                <input type="password" placeholder="Password" name="password" id="password" required>
+                                
                                 <button type="submit" class="btn">Login</button>
                                 <a href="#" onclick="forgot()">Forgot Password</a>
                             </form>
-                            <form id="RegForm">
-                                <input type="text" placeholder="Username" required>
-                                <input type="email" placeholder="Email">
-                                <input type="password" placeholder="Password" required>
+                            <form id="RegForm" action="/account/register" method="POST">
+                                <label for="username"></label>
+                                <input type="text" placeholder="Username" id="username" name="username" required>
+                                <label for="email"></label>
+                                <input type="email" placeholder="Email" name="email" id="email" required>
+                                <label for="password"></label>
+                                <input type="password" placeholder="Password" name="password" id="password" required>
+                                <label for="access">Admin</label>
+                                <input type="radio" id="access" name="access">
                                 <button type="submit" class="btn">Register</button>
                             </form>
                         </div>
@@ -67,19 +75,19 @@
                 var ForgotPassword = document.getElementById("ForgotPassword")
                 var Indicator = document.getElementById("Indicator")
 
-                function register() {
-                    RegForm.style.transform = "translateX(0px)";
-                    LoginForm.style.transform = "translateX(0px)";
-                    ForgotPassword.style.transform = "translateX(0px)";
-                    Indicator.style.transform = "translateX(100px)";
-                    Indicator.style.visibility = "visible";
-                }
-
                 function login() {
                     RegForm.style.transform = "translateX(300px)";
                     LoginForm.style.transform = "translateX(300px)";
                     ForgotPassword.style.transform = "translateX(300px)"
                     Indicator.style.transform = "translateX(0px)";
+                    Indicator.style.visibility = "visible";
+                }
+
+                function register() {
+                    RegForm.style.transform = "translateX(0px)";
+                    LoginForm.style.transform = "translateX(0px)";
+                    ForgotPassword.style.transform = "translateX(0px)";
+                    Indicator.style.transform = "translateX(100px)";
                     Indicator.style.visibility = "visible";
                 }
 
@@ -89,6 +97,12 @@
                     ForgotPassword.style.transform = "translateX(600px)";
                     Indicator.style.visibility = "hidden";
                 }
+                window.onload(() => {
+                    if(loggedin == 0){
+                    alert("Invalid Username or Password !");
+                }
+                })
+                
             </script>
     </body>
 

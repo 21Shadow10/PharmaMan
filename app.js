@@ -167,7 +167,8 @@ app.get('/products/:id', (req, res) => {
         });
 });
 app.get('/account', (req, res) => {
-    res.render('account', { title: 'Account' });
+    const loggedin = req.query.loggedin ;
+    res.render('account', { title: 'Account', loggedin });
 });
 
 // Admin Pages
@@ -251,6 +252,8 @@ app.delete('/admin/:id', (req, res) => {
         });
 });
 
+
+//Cart Routes
 app.post('/cart/:id', (req, res) => {
     const id = req.params.id;
     //console.log(req.body);
@@ -297,6 +300,44 @@ app.get('/cart/delete', (req, res) => {
             console.log(err);
         });
 });
+
+//Login Routes
+app.post('/account/register', (req,res) => {
+    if(!req.body.access){
+        req.body.access = 'off' ;
+    }
+    const user = new User(req.body) ;
+
+    user.
+        save()
+        .then((result) => {
+            res.redirect('/');
+        })
+        .catch((err) => {
+            console.log(err) ;
+        })
+})
+
+app.post('/account/login', (req,res) => {
+    const uname = req.body.username ;
+    const paswd = req.body.password ;
+    User.find({ username: uname})
+        .then((result) => {
+            const loggedin = 0 ;
+            console.log(result) ; 
+            if(result[0].password == paswd){
+                console.log("Success") ;
+                res.redirect('/');
+            }
+            else{
+                res.redirect(`/account?${loggedin}`) ;
+            }
+        })
+        .catch((err) => {
+            console.log(err) ;
+        })
+})
+
 // 404 page
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
