@@ -31,7 +31,7 @@
                                 <input type="text" placeholder="Username" id="username" name="username" required>
                                 <label for="email"></label>
                                 <input type="password" placeholder="Password" name="password" id="password" required>
-                                
+
                                 <button type="submit" class="btn">Login</button>
                                 <a href="#" onclick="forgot()">Forgot Password</a>
                             </form>
@@ -98,11 +98,10 @@
                     Indicator.style.visibility = "hidden";
                 }
                 window.onload(() => {
-                    if(loggedin == 0){
-                    alert("Invalid Username or Password !");
-                }
+                    if (loggedin == 0) {
+                        alert("Invalid Username or Password !");
+                    }
                 })
-                
             </script>
     </body>
 
