@@ -312,9 +312,10 @@ app.post('/account/register', (req,res) => {
     user.
         save()
         .then((result) => {
-            res.redirect('/');
+            console.log('success') ;
         })
         .catch((err) => {
+            console.log("Crash !!") ;
             console.log(err) ;
         })
 })
@@ -322,20 +323,13 @@ app.post('/account/register', (req,res) => {
 app.post('/account/login', (req,res) => {
     const uname = req.body.username ;
     const paswd = req.body.password ;
-    User.find({ username: uname})
+    User.find({ username: uname, password: paswd})
         .then((result) => {
-            const loggedin = 0 ;
-            console.log(result) ; 
-            if(result[0].password == paswd){
-                console.log("Success") ;
-                res.redirect('/');
-            }
-            else{
-                res.redirect(`/account?${loggedin}`) ;
-            }
+            console.log('success') ;
+            res.redirect('/');
         })
         .catch((err) => {
-            console.log(err) ;
+            console.log(err);
         })
 })
 
