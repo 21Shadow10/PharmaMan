@@ -352,6 +352,11 @@ function paginatedResults(model) {
         var page;
         var limit;
         var search;
+        var sorted = req.query.sort;
+        var obj = {};
+        obj[sorted] = 1;
+        console.log(obj);
+        console.log(sorted);
         if (req.query.page == undefined) {
             page = 1;
         } else {
@@ -388,18 +393,20 @@ function paginatedResults(model) {
             if (req.query.search == undefined || req.query.search == '') {
                 results.results = await model
                     .find()
+                    .sort(obj)
                     .limit(limit)
                     .skip(startIndex)
                     .exec();
             } else {
                 results.results = await model
                     .find({ name: search })
+                    .sort(obj)
                     .limit(limit)
                     .skip(startIndex)
                     .exec();
             }
             var products = results.results;
-            console.log(products);
+
             const prod = [];
             var chunkSize = 4;
             for (let i = 0; i < products.length; i += chunkSize) {
