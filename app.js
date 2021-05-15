@@ -187,7 +187,7 @@ app.get('/admin/add', (req, res) => {
 
 app.post('/admin', (req, res) => {
     const product = new Product(req.body);
-    console.log(product);
+    //console.log(product);
     product
         .save()
         .then((result) => {
@@ -253,11 +253,11 @@ app.delete('/admin/:id', (req, res) => {
 
 app.post('/cart/:id', (req, res) => {
     const id = req.params.id;
-    console.log(req.body);
+    //console.log(req.body);
     req.body.username = 'abc';
     req.body._productid = id;
     const cart = new Cart(req.body);
-    console.log(cart);
+    //console.log(cart);
     cart
         .save()
         .then((result) => {
@@ -269,7 +269,7 @@ app.post('/cart/:id', (req, res) => {
 });
 
 app.get('/cart', (req, res) => {
-    console.log('entered requsetes');
+    //console.log('entered requsetes');
     /*Cart.find()
            .then((result) => {
                console.log('results' + result);
@@ -282,8 +282,19 @@ app.get('/cart', (req, res) => {
         .populate('_productid') // only works if we pushed refs to person.eventsAttended
         .exec(function(err, products) {
             if (err) return handleError(err);
-            console.log('P' + products);
+            //console.log('P' + products);
             res.render('cart', { title: 'Cart', products });
+        });
+});
+app.get('/cart/delete', (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    Cart.findByIdAndDelete(id)
+        .then((result) => {
+            res.redirect('/cart');
+        })
+        .catch((err) => {
+            console.log(err);
         });
 });
 // 404 page
