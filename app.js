@@ -135,6 +135,7 @@ const products = [{
 		console.log(error); // Failure
 	});*/
 //Routing
+var access1;
 app.get('/', paginatedResults(Product), (req, res) => {
     var prod = res.paginatedResults.results;
     var rando = Math.floor(Math.random() * prod.length);
@@ -167,9 +168,42 @@ app.get('/products/:id', (req, res) => {
             res.render('404', { title: 'Product not found' });
         });
 });
+
+// account pages
 app.get('/account', (req, res) => {
-    const loggedin = req.query.loggedin ;
+    const loggedin = req.query.loggedin;
     res.render('account', { title: 'Account', loggedin });
+});
+//Login Routes
+app.post('/account/register', (req, res) => {
+    if (!req.body.access) {
+        req.body.access = 'off';
+    }
+    const user = new User(req.body);
+
+    user
+        .save()
+        .then((result) => {
+            console.log('success');
+        })
+        .catch((err) => {
+            console.log('Crash !!');
+            console.log(err);
+        });
+});
+
+app.post('/account/login', (req, res) => {
+    const uname = req.body.username;
+    const paswd = req.body.password;
+    User.find({ username: uname, password: paswd })
+        .then((result) => {
+            const access = result.access;
+            console.log(access);
+            res.redirect(`/?access=${access}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 // Admin Pages
@@ -253,7 +287,6 @@ app.delete('/admin/:id', (req, res) => {
         });
 });
 
-
 //Cart Routes
 app.post('/cart/:id', (req, res) => {
     const id = req.params.id;
@@ -273,15 +306,6 @@ app.post('/cart/:id', (req, res) => {
 });
 
 app.get('/cart', (req, res) => {
-    //console.log('entered requsetes');
-    /*Cart.find()
-           .then((result) => {
-               console.log('results' + result);
-               res.render('cart', { title: 'Cart', result });
-           })
-           .catch((err) => {
-               console.log(err);
-           });*/
     Cart.find({})
         .populate('_productid') // only works if we pushed refs to person.eventsAttended
         .exec(function(err, products) {
@@ -292,7 +316,6 @@ app.get('/cart', (req, res) => {
 });
 app.get('/cart/delete', (req, res) => {
     const id = req.query.id;
-    console.log(id);
     Cart.findByIdAndDelete(id)
         .then((result) => {
             res.redirect('/cart');
@@ -301,37 +324,6 @@ app.get('/cart/delete', (req, res) => {
             console.log(err);
         });
 });
-
-//Login Routes
-app.post('/account/register', (req,res) => {
-    if(!req.body.access){
-        req.body.access = 'off' ;
-    }
-    const user = new User(req.body) ;
-
-    user.
-        save()
-        .then((result) => {
-            console.log('success') ;
-        })
-        .catch((err) => {
-            console.log("Crash !!") ;
-            console.log(err) ;
-        })
-})
-
-app.post('/account/login', (req,res) => {
-    const uname = req.body.username ;
-    const paswd = req.body.password ;
-    User.find({ username: uname, password: paswd})
-        .then((result) => {
-            console.log('success') ;
-            res.redirect('/');
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-})
 
 // 404 page
 app.use((req, res) => {
@@ -390,8 +382,6 @@ function paginatedResults(model) {
         var sorted = req.query.sort;
         var obj = {};
         obj[sorted] = 1;
-        console.log(obj);
-        console.log(sorted);
         if (req.query.page == undefined) {
             page = 1;
         } else {
