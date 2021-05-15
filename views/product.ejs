@@ -10,7 +10,14 @@
                 <%- include('./partials/nav.ejs') %>
             </div>
         </div>
+
         <div class="small-container">
+            <div class="row row-2">
+                <label for="search"></label>
+                <input type="text" class="search" id="search" name="search" value=<%=search%>>
+                <button class="btn" id="search-btn" onclick="search(event)">Search </button>
+
+            </div>
             <div class="row row-2">
                 <h2>All Products</h2>
                 <Select>
@@ -20,6 +27,7 @@
                 <option>Sort by rating</option>
             </Select>
             </div>
+
             <%if(prod.length>0) {%>
                 <%for(i=0;i<prod.length;i++) {%>
                     <div class="row">
@@ -71,13 +79,20 @@
             <!-----------JS for toggle Menu------------>
             <script>
                 function check(event) {
-
+                    var search = document.getElementById('search').value
                     var skip = event.target.value
                     var take = 8
                     const set = document.querySelector('div.page-btn');
                     set.onclick = function() {
-                        location.href = `/products?page=${skip}&limit=${take}`
+                        location.href = `/products?page=${skip}&limit=${take}&search=${search}`
                     }
+
+                }
+
+                function search(event) {
+                    var search = document.getElementById('search').value
+                    console.log(search)
+                    window.location.href = `/products?search=${search}`
 
                 }
             </script>

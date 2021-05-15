@@ -614,6 +614,29 @@ form a {
 }
 
 
+/*---------search bar -----------*/
+
+.search,
+#search-btn {
+    display: inline-block;
+    margin: 20px
+}
+
+.searchbar {
+    width: 100%;
+}
+
+.search {
+    float: left;
+    width: 50%;
+}
+
+#search-btn {
+    float: right;
+    width: 30%;
+}
+
+
 /*---------------about us-----------------*/
 
 .about-us {
