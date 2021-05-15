@@ -136,7 +136,7 @@ const products = [{
 	});*/
 //Routing
 app.get('/', paginatedResults(Product), (req, res) => {
-    var prod = res.paginatedResults;
+    var prod = res.paginatedResults.results;
     var rando = Math.floor(Math.random() * prod.length);
     var prod1 = prod[rando];
     var rando1 = Math.floor(Math.random() * (prod.length - 2));
@@ -149,8 +149,9 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/products', paginatedResults(Product), (req, res) => {
-    var prod = res.paginatedResults;
-    res.render('product', { title: 'Products', prod });
+    var prod = res.paginatedResults.results;
+    var search = res.paginatedResults.search;
+    res.render('product', { title: 'Products', prod, search });
 });
 app.get('/products/:id', (req, res) => {
     const id = req.params.id;
@@ -343,7 +344,7 @@ app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });
 
-function paginatedResults(model) {
+/*function paginatedResults(model) {
     return async(req, res, next) => {
         var page;
         var limit;
@@ -381,6 +382,81 @@ function paginatedResults(model) {
                 prod.push(chunk);
             }
             res.paginatedResults = prod;
+            next();
+        } catch (e) {
+            res.status(500).json({ message: e.message });
+        }
+    };
+}*/
+function paginatedResults(model) {
+    return async(req, res, next) => {
+        var page;
+        var limit;
+        var search;
+        var sorted = req.query.sort;
+        var obj = {};
+        obj[sorted] = 1;
+        console.log(obj);
+        console.log(sorted);
+        if (req.query.page == undefined) {
+            page = 1;
+        } else {
+            page = parseInt(req.query.page);
+        }
+        if (req.query.limit == undefined) limit = 8;
+        else {
+            limit = parseInt(req.query.limit);
+        }
+        if (req.query.search == undefined) req.query.search = '';
+        else {
+            search = req.query.search;
+            console.log(search);
+        }
+        //console.log(page + ' ' + limit);
+
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {};
+
+        if (endIndex < (await model.countDocuments().exec())) {
+            results.next = {
+                page: page + 1,
+                limit: limit,
+            };
+        }
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit,
+            };
+        }
+        try {
+            if (req.query.search == undefined || req.query.search == '') {
+                results.results = await model
+                    .find()
+                    .sort(obj)
+                    .limit(limit)
+                    .skip(startIndex)
+                    .exec();
+            } else {
+                results.results = await model
+                    .find({ name: search })
+                    .sort(obj)
+                    .limit(limit)
+                    .skip(startIndex)
+                    .exec();
+            }
+            var products = results.results;
+
+            const prod = [];
+            var chunkSize = 4;
+            for (let i = 0; i < products.length; i += chunkSize) {
+                const chunk = products.slice(i, i + chunkSize);
+                prod.push(chunk);
+            }
+            results.results = prod;
+            results.search = search;
+            res.paginatedResults = results;
             next();
         } catch (e) {
             res.status(500).json({ message: e.message });
