@@ -391,10 +391,10 @@ function paginatedResults(model) {
         else {
             limit = parseInt(req.query.limit);
         }
-        if (req.query.search == undefined) req.query.search = '';
+        if (req.query.search == undefined || req.query.search == '')
+            req.query.search = '';
         else {
             search = req.query.search;
-            console.log(search);
         }
         //console.log(page + ' ' + limit);
 

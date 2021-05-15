@@ -13,11 +13,11 @@
 
         <div class="small-container">
             <div class="row row-2">
-                <form class="searchbar">
-                    <label for="search"></label>
-                    <input type="text" class="search" id="search" name="search" value="<%=search%>">
-                    <button class="btn " id="search-btn" onclick="search(event) ">Search </button>
-                </form>
+
+                <label for="search"></label>
+                <input type="text" class="search" id="search" name="search" value="<%=search%>">
+                <button class="btn " id="search-btn" onclick="search(event) ">Search </button>
+
 
             </div>
             <div class="row row-2 ">
@@ -97,6 +97,7 @@
                 function search(event) {
                     var selectElement = document.querySelector('#sort');
                     var sort = selectElement.value;
+                    console.log('sort html' + sort)
                     var search = document.getElementById('search').value
                     console.log(search)
                     window.location.href = `/products?search=${search}&sort=${sort}`
