@@ -588,15 +588,7 @@ form .btn:focus {
 }
 
 #ForgotPassword {
-    left: -600px;
-}
-
-#LoginForm {
     left: -300px;
-}
-
-#RegForm {
-    left: 0px;
 }
 
 form a {
@@ -609,8 +601,6 @@ form a {
     background: #3b5a73;
     height: 3px;
     margin-top: 8px;
-    transform: translateX(100px);
-    transition: transform 1s;
 }
 
 

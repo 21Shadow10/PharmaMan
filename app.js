@@ -175,7 +175,13 @@ app.get('/account', (req, res) => {
     res.render('account', { title: 'Account', loggedin });
 });
 //Login Routes
-app.post('/account/register', (req, res) => {
+app.get('/login', (req, res) => {
+    res.render('login', { title: 'Login' });
+});
+app.get('/register', (req, res) => {
+    res.render('register', { title: 'Register' });
+});
+app.post('/register', (req, res) => {
     if (!req.body.access) {
         req.body.access = 'off';
     }
@@ -192,14 +198,13 @@ app.post('/account/register', (req, res) => {
         });
 });
 
-app.post('/account/login', (req, res) => {
+app.post('/login', (req, res) => {
     const uname = req.body.username;
     const paswd = req.body.password;
     User.find({ username: uname, password: paswd })
         .then((result) => {
             const access = result.access;
             console.log(access);
-            res.redirect(`/?access=${access}`);
         })
         .catch((err) => {
             console.log(err);

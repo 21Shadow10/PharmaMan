@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+
+        <!--div class="container">
+            <%- include('./partials/nav.ejs') %>
+        </div-->
+        <!-----account page------>
+        <div class="account-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="/main2.png" width="100%">
+                    </div>
+                    <div class="col-2">
+                        <div class="form-container">
+                            <div class="form-btn">
+                                <span id="login" onclick="login()">Login</span>
+                                <hr id="Indicator">
+                            </div>
+                            <form id="ForgotPassword">
+                                <input type="email" placeholder="Email" required>
+                                <button type="submit" class="btn">Submit</button>
+                            </form>
+                            <form id="LoginForm" action="/login" method="POST">
+                                <label for="username"></label>
+                                <input type="text" placeholder="Username" id="username" name="username" required>
+                                <label for="email"></label>
+                                <input type="password" placeholder="Password" name="password" id="password" required>
+
+                                <button type="submit" class="btn">Login</button>
+                                <a href="#" onclick="forgot()">Forgot Password</a>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!------------Footer-------------->
+        <%- include('./partials/footer.ejs') %>
+
+            <!-----------JS for toggle Menu------------>
+            <script>
+                var MenuItems = document.getElementById("MenuItems");
+                MenuItems.style.maxHeight = "0px";
+
+                function menuToggle() {
+                    if (MenuItems.style.maxHeight == "0px") {
+                        MenuItems.style.maxHeight = "200px"
+                    } else {
+                        MenuItems.style.maxHeight = "0px"
+                    }
+                }
+            </script>
+            <!-----------js for toggle form------>
+            <script>
+                var ForgotPassword = document.getElementById("ForgotPassword")
+                var Indicator = document.getElementById("Indicator")
+
+                function forgot() {
+                    LoginForm.style.transform = "translateX(300px)";
+                    ForgotPassword.style.transform = "translateX(300px)";
+                    Indicator.style.visibility = "hidden";
+                }
+
+                function login() {
+                    LoginForm.style.transform = "translateX(0px)";
+                    ForgotPassword.style.transform = "translateX(0px)"
+                    Indicator.style.visibility = "visible";
+                }
+            </script>
+    </body>
+
+</html>
