@@ -169,13 +169,11 @@ const products = [{
 //Routing
 
 app.get('/home', ensureAuthenticated, paginatedResults(Product), (req, res) => {
-    console.log(paginatedResults);
     var prod = res.paginatedResults.results;
     var rando = Math.floor(Math.random() * prod.length);
     var prod1 = prod[rando];
     var rando1 = Math.floor(Math.random() * (prod.length - 2));
     var prod2 = prod.slice(rando1, rando1 + 2);
-    console.log(prod1, prod2);
     res.render('index', { title: 'Home', user: req.user, prod1, prod2 });
 });
 
