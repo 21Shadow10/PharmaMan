@@ -9,49 +9,7 @@
             <%- include('./partials/nav.ejs') %>
         </div>
         <!-----account page------>
-        <div class="account-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="/main2.png" width="100%">
-                    </div>
-                    <div class="col-2">
-                        <div class="form-container">
-                            <div class="form-btn">
-                                <span onclick="login()">Login</span>
-                                <span onclick="register()">Register</span>
-                                <hr id="Indicator">
-                            </div>
-                            <form id="ForgotPassword">
-                                <input type="email" placeholder="Email" required>
-                                <button type="submit" class="btn">Submit</button>
-                            </form>
-                            <form id="LoginForm" action="/account/login" method="POST">
-                                <label for="username"></label>
-                                <input type="text" placeholder="Username" id="username" name="username" required>
-                                <label for="email"></label>
-                                <input type="password" placeholder="Password" name="password" id="password" required>
-
-                                <button type="submit" class="btn">Login</button>
-                                <a href="#" onclick="forgot()">Forgot Password</a>
-                            </form>
-                            <form id="RegForm" action="/account/register" method="POST">
-                                <label for="username"></label>
-                                <input type="text" placeholder="Username" id="username" name="username" required>
-                                <label for="email"></label>
-                                <input type="email" placeholder="Email" name="email" id="email" required>
-                                <label for="password"></label>
-                                <input type="password" placeholder="Password" name="password" id="password" required>
-                                <label for="access">Admin</label>
-                                <input type="checkbox" id="access" name="access">
-                                <button type="submit" class="btn">Register</button>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <a class="btn" href="/logout">Logout</a>
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>
 

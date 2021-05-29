@@ -3,6 +3,14 @@ const mongoose = require('mongoose');
 const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
+require('dotenv').config();
+//Passport config
+require('./config/passport')(passport);
+const { ensureAuthenticated, forwardAuthenticated } = require('./config/auth');
 // express app
 const app = express();
 
@@ -11,12 +19,36 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-const dbURI =
-    'mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/PharmaMan?retryWrites=true&w=majority';
+// Express session
+app.use(
+    session({
+        secret: process.env.DB_SECRET,
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
+//DB config
+const db = require('./config/keys').mongoURI;
+// Connect to MongoDB
 mongoose
-    .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => {
-        console.log('connected');
+    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('MongoDB Connected');
         app.listen(3000);
     })
     .catch((err) => console.log(err));
@@ -135,14 +167,16 @@ const products = [{
 		console.log(error); // Failure
 	});*/
 //Routing
-var access1;
-app.get('/', paginatedResults(Product), (req, res) => {
+
+app.get('/home', ensureAuthenticated, paginatedResults(Product), (req, res) => {
+    console.log(paginatedResults);
     var prod = res.paginatedResults.results;
     var rando = Math.floor(Math.random() * prod.length);
     var prod1 = prod[rando];
     var rando1 = Math.floor(Math.random() * (prod.length - 2));
     var prod2 = prod.slice(rando1, rando1 + 2);
-    res.render('index', { title: 'Home', prod1, prod2 });
+    console.log(prod1, prod2);
+    res.render('index', { title: 'Home', user: req.user, prod1, prod2 });
 });
 
 app.get('/about', (req, res) => {
@@ -175,40 +209,83 @@ app.get('/account', (req, res) => {
     res.render('account', { title: 'Account', loggedin });
 });
 //Login Routes
-app.get('/login', (req, res) => {
-    res.render('login', { title: 'Login' });
-});
-app.get('/register', (req, res) => {
-    res.render('register', { title: 'Register' });
+app.get('/', forwardAuthenticated, (req, res) => res.render('login'));
+app.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
+app.get('/register', forwardAuthenticated, (req, res) => {
+    res.render('register');
 });
 app.post('/register', (req, res) => {
-    if (!req.body.access) {
-        req.body.access = 'off';
-    }
-    const user = new User(req.body);
+    const { username, email, password, password2 } = req.body;
+    let errors = [];
 
-    user
-        .save()
-        .then((result) => {
-            console.log('success');
-        })
-        .catch((err) => {
-            console.log('Crash !!');
-            console.log(err);
+    if (!username || !email || !password || !password2) {
+        errors.push({ msg: 'Please enter all fields' });
+    }
+
+    if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+    }
+
+    if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+    }
+    if (errors.length > 0) {
+        res.render('register', {
+            errors,
+            username,
+            email,
+            password,
+            password2,
         });
+    } else {
+        User.findOne({ email: email }).then((user) => {
+            if (user) {
+                errors.push({ msg: 'Email already exists' });
+                res.render('register', {
+                    errors,
+                    username,
+                    email,
+                    password,
+                    password2,
+                });
+            } else {
+                const newUser = new User({
+                    username,
+                    email,
+                    password,
+                });
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then((user) => {
+                                req.flash(
+                                    'success_msg',
+                                    'You are now registered and can log in'
+                                );
+                                res.redirect('/login');
+                            })
+                            .catch((err) => console.log(err));
+                    });
+                });
+            }
+        });
+    }
 });
 
-app.post('/login', (req, res) => {
-    const uname = req.body.username;
-    const paswd = req.body.password;
-    User.find({ username: uname, password: paswd })
-        .then((result) => {
-            const access = result.access;
-            console.log(access);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/home',
+        failureRedirect: '/login',
+        failureFlash: true,
+    })(req, res, next);
+});
+app.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect('/login');
 });
 
 // Admin Pages
@@ -336,49 +413,49 @@ app.use((req, res) => {
 });
 
 /*function paginatedResults(model) {
-    return async(req, res, next) => {
-        var page;
-        var limit;
-        if (req.query.page == undefined && req.query.limit == undefined) {
-            page = 1;
-            limit = 8;
-        } else {
-            page = parseInt(req.query.page);
-            limit = parseInt(req.query.limit);
-        }
-        //console.log(page + ' ' + limit);
+            return async(req, res, next) => {
+                var page;
+                var limit;
+                if (req.query.page == undefined && req.query.limit == undefined) {
+                    page = 1;
+                    limit = 8;
+                } else {
+                    page = parseInt(req.query.page);
+                    limit = parseInt(req.query.limit);
+                }
+                //console.log(page + ' ' + limit);
 
-        const startIndex = (page - 1) * limit;
-        const endIndex = page * limit;
-        const results = {};
-        if (endIndex < (await model.countDocuments().exec())) {
-            results.next = {
-                page: page + 1,
-                limit: limit,
+                const startIndex = (page - 1) * limit;
+                const endIndex = page * limit;
+                const results = {};
+                if (endIndex < (await model.countDocuments().exec())) {
+                    results.next = {
+                        page: page + 1,
+                        limit: limit,
+                    };
+                }
+                if (startIndex > 0) {
+                    results.previous = {
+                        page: page - 1,
+                        limit: limit,
+                    };
+                }
+                try {
+                    results.results = await model.find().limit(limit).skip(startIndex).exec();
+                    var products = results.results;
+                    const prod = [];
+                    var chunkSize = 4;
+                    for (let i = 0; i < products.length; i += chunkSize) {
+                        const chunk = products.slice(i, i + chunkSize);
+                        prod.push(chunk);
+                    }
+                    res.paginatedResults = prod;
+                    next();
+                } catch (e) {
+                    res.status(500).json({ message: e.message });
+                }
             };
-        }
-        if (startIndex > 0) {
-            results.previous = {
-                page: page - 1,
-                limit: limit,
-            };
-        }
-        try {
-            results.results = await model.find().limit(limit).skip(startIndex).exec();
-            var products = results.results;
-            const prod = [];
-            var chunkSize = 4;
-            for (let i = 0; i < products.length; i += chunkSize) {
-                const chunk = products.slice(i, i + chunkSize);
-                prod.push(chunk);
-            }
-            res.paginatedResults = prod;
-            next();
-        } catch (e) {
-            res.status(500).json({ message: e.message });
-        }
-    };
-}*/
+        }*/
 function paginatedResults(model) {
     return async(req, res, next) => {
         var page;

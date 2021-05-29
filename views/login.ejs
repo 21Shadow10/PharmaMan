@@ -1,78 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./partials/head.ejs') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body>
+    <title>
+        Login
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style.css">
 
-        <!--div class="container">
-            <%- include('./partials/nav.ejs') %>
-        </div-->
-        <!-----account page------>
-        <div class="account-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="/main2.png" width="100%">
-                    </div>
-                    <div class="col-2">
-                        <div class="form-container">
-                            <div class="form-btn">
-                                <span id="login" onclick="login()">Login</span>
-                                <hr id="Indicator">
-                            </div>
-                            <form id="ForgotPassword">
-                                <input type="email" placeholder="Email" required>
-                                <button type="submit" class="btn">Submit</button>
-                            </form>
+</head>
+
+<body>
+    <!-----account page------>
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/main2.png" width="100%">
+                </div>
+                <div class="col-2">
+                    <div class="form-container">
+
+
+                        <div class="form-btn">
+                            <span id="login" onclick="login()">Login</span>
+                            <hr id="Indicator">
+                        </div>
+                        <%- include('./partials/messages.ejs') %>
                             <form id="LoginForm" action="/login" method="POST">
-                                <label for="username"></label>
-                                <input type="text" placeholder="Username" id="username" name="username" required>
+                                <label for="email"></label>
+                                <input type="email" placeholder="Email" id="email" name="email" required>
                                 <label for="email"></label>
                                 <input type="password" placeholder="Password" name="password" id="password" required>
 
                                 <button type="submit" class="btn">Login</button>
-                                <a href="#" onclick="forgot()">Forgot Password</a>
-                            </form>
-                        </div>
-                    </div>
 
+                            </form>
+                            <p>
+                                No Account? <a class="btn" href="/register">Register</a>
+                            </p>
+                    </div>
                 </div>
+
             </div>
         </div>
-        <!------------Footer-------------->
-        <%- include('./partials/footer.ejs') %>
-
-            <!-----------JS for toggle Menu------------>
-            <script>
-                var MenuItems = document.getElementById("MenuItems");
-                MenuItems.style.maxHeight = "0px";
-
-                function menuToggle() {
-                    if (MenuItems.style.maxHeight == "0px") {
-                        MenuItems.style.maxHeight = "200px"
-                    } else {
-                        MenuItems.style.maxHeight = "0px"
-                    }
-                }
-            </script>
-            <!-----------js for toggle form------>
-            <script>
-                var ForgotPassword = document.getElementById("ForgotPassword")
-                var Indicator = document.getElementById("Indicator")
-
-                function forgot() {
-                    LoginForm.style.transform = "translateX(300px)";
-                    ForgotPassword.style.transform = "translateX(300px)";
-                    Indicator.style.visibility = "hidden";
-                }
-
-                function login() {
-                    LoginForm.style.transform = "translateX(0px)";
-                    ForgotPassword.style.transform = "translateX(0px)"
-                    Indicator.style.visibility = "visible";
-                }
-            </script>
-    </body>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <%- include('./partials/footer.ejs') %>
+</body>
 
 </html>

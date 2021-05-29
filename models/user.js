@@ -8,10 +8,6 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    access: {
-        type: String,
-        required: true,
-    },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
