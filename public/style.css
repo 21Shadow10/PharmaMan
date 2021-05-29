@@ -774,3 +774,16 @@ form a {
     display: block;
     margin-top: 24px;
 }
+
+
+/*404*/
+
+.not-found,
+.account {
+    margin: 100px 20px;
+    min-height: 300px;
+}
+
+.account {
+    text-align: justify;
+}

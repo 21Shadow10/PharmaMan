@@ -5,11 +5,27 @@
 
     <body>
 
-        <div class="container">
-            <%- include('./partials/nav.ejs') %>
+        <div class="header-2">
+            <div class="container">
+                <%- include('./partials/nav.ejs') %>
+            </div>
         </div>
         <!-----account page------>
-        <a class="btn" href="/logout">Logout</a>
+        <div class="account">
+            <div>
+                <h1>Profile</h1>
+            </div>
+            <div>
+                Name:
+                <%=user.username%>
+
+
+                    <br> Email:
+                    <%=user.email%>
+            </div>
+
+
+        </div>
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>
 

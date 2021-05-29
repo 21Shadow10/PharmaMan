@@ -166,6 +166,29 @@ const products = [{
 	.catch(function (error) {
 		console.log(error); // Failure
 	});*/
+//Add Admin
+/*username = 'Admin';
+email = 'AT@gmail.com';
+password = '123456';
+admin = true;
+const newUser = new User({
+    username,
+    email,
+    password,
+    admin,
+});
+bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser
+            .save()
+            .then((user) => {
+                console.log(user);
+            })
+            .catch((err) => console.log(err));
+    });
+});*/
 //Routing
 
 app.get('/home', ensureAuthenticated, paginatedResults(Product), (req, res) => {
@@ -178,7 +201,7 @@ app.get('/home', ensureAuthenticated, paginatedResults(Product), (req, res) => {
 });
 
 app.get('/about', ensureAuthenticated, (req, res) => {
-    res.render('about', { title: 'About' });
+    res.render('about', { title: 'About', user: req.user });
 });
 
 app.get(
@@ -188,7 +211,12 @@ app.get(
     (req, res) => {
         var prod = res.paginatedResults.results;
         var search = res.paginatedResults.search;
-        res.render('product', { title: 'Products', prod, search });
+        res.render('product', {
+            title: 'Products',
+            user: req.user,
+            prod,
+            search,
+        });
     }
 );
 app.get('/products/:id', ensureAuthenticated, (req, res) => {
@@ -197,6 +225,7 @@ app.get('/products/:id', ensureAuthenticated, (req, res) => {
         .then((result) => {
             res.render('product-details', {
                 product: result,
+                user: req.user,
                 title: 'Product Details',
             });
         })
@@ -208,8 +237,7 @@ app.get('/products/:id', ensureAuthenticated, (req, res) => {
 
 // account pages
 app.get('/account', (req, res) => {
-    const loggedin = req.query.loggedin;
-    res.render('account', { title: 'Account', loggedin });
+    res.render('account', { title: 'Account', user: req.user });
 });
 //Login Routes
 app.get('/', forwardAuthenticated, (req, res) => res.render('login'));
@@ -292,10 +320,14 @@ app.get('/logout', (req, res) => {
 });
 
 // Admin Pages
-app.get('/admin/modify', ensureAuthenticated, (req, res) => {
+app.get('/admin/modify', ensureAuthenticated, access, (req, res) => {
     Product.find()
         .then((result) => {
-            res.render('admin/modify', { title: 'Modify', products: result });
+            res.render('admin/modify', {
+                title: 'Modify',
+                user: req.user,
+                products: result,
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -303,7 +335,7 @@ app.get('/admin/modify', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/admin/add', ensureAuthenticated, (req, res) => {
-    res.render('admin/add', { title: 'Add New Products' });
+    res.render('admin/add', { title: 'Add New Products', user: req.user });
 });
 
 app.post('/admin', ensureAuthenticated, (req, res) => {
@@ -323,7 +355,11 @@ app.get('/admin/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
-            res.render('admin/edit', { title: 'Edit your Meds', product: result });
+            res.render('admin/edit', {
+                title: 'Edit your Meds',
+                user: req.user,
+                product: result,
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -396,11 +432,12 @@ app.get('/cart', ensureAuthenticated, (req, res) => {
         .exec(function(err, products) {
             if (err) return handleError(err);
             //console.log('P' + products);
-            res.render('cart', { title: 'Cart', products });
+            res.render('cart', { title: 'Cart', user: req.user, products });
         });
 });
 app.get('/cart/delete', ensureAuthenticated, (req, res) => {
     const id = req.query.id;
+
     Cart.findByIdAndDelete(id)
         .then((result) => {
             res.redirect('/cart');
@@ -412,53 +449,54 @@ app.get('/cart/delete', ensureAuthenticated, (req, res) => {
 
 // 404 page
 app.use((req, res) => {
-    res.status(404).render('404', { title: '404' });
+    message = 'OOPS, page not found :)';
+    res.status(404).render('404', { title: '404', message });
 });
 
 /*function paginatedResults(model) {
-            return async(req, res, next) => {
-                var page;
-                var limit;
-                if (req.query.page == undefined && req.query.limit == undefined) {
-                    page = 1;
-                    limit = 8;
-                } else {
-                    page = parseInt(req.query.page);
-                    limit = parseInt(req.query.limit);
-                }
-                //console.log(page + ' ' + limit);
+                        return async(req, res, next) => {
+                            var page;
+                            var limit;
+                            if (req.query.page == undefined && req.query.limit == undefined) {
+                                page = 1;
+                                limit = 8;
+                            } else {
+                                page = parseInt(req.query.page);
+                                limit = parseInt(req.query.limit);
+                            }
+                            //console.log(page + ' ' + limit);
 
-                const startIndex = (page - 1) * limit;
-                const endIndex = page * limit;
-                const results = {};
-                if (endIndex < (await model.countDocuments().exec())) {
-                    results.next = {
-                        page: page + 1,
-                        limit: limit,
-                    };
-                }
-                if (startIndex > 0) {
-                    results.previous = {
-                        page: page - 1,
-                        limit: limit,
-                    };
-                }
-                try {
-                    results.results = await model.find().limit(limit).skip(startIndex).exec();
-                    var products = results.results;
-                    const prod = [];
-                    var chunkSize = 4;
-                    for (let i = 0; i < products.length; i += chunkSize) {
-                        const chunk = products.slice(i, i + chunkSize);
-                        prod.push(chunk);
-                    }
-                    res.paginatedResults = prod;
-                    next();
-                } catch (e) {
-                    res.status(500).json({ message: e.message });
-                }
-            };
-        }*/
+                            const startIndex = (page - 1) * limit;
+                            const endIndex = page * limit;
+                            const results = {};
+                            if (endIndex < (await model.countDocuments().exec())) {
+                                results.next = {
+                                    page: page + 1,
+                                    limit: limit,
+                                };
+                            }
+                            if (startIndex > 0) {
+                                results.previous = {
+                                    page: page - 1,
+                                    limit: limit,
+                                };
+                            }
+                            try {
+                                results.results = await model.find().limit(limit).skip(startIndex).exec();
+                                var products = results.results;
+                                const prod = [];
+                                var chunkSize = 4;
+                                for (let i = 0; i < products.length; i += chunkSize) {
+                                    const chunk = products.slice(i, i + chunkSize);
+                                    prod.push(chunk);
+                                }
+                                res.paginatedResults = prod;
+                                next();
+                            } catch (e) {
+                                res.status(500).json({ message: e.message });
+                            }
+                        };
+                    }*/
 function paginatedResults(model) {
     return async(req, res, next) => {
         var page;
@@ -531,4 +569,13 @@ function paginatedResults(model) {
             res.status(500).json({ message: e.message });
         }
     };
+}
+
+function access(req, res, next) {
+    console.log(req.user);
+    console.log(res);
+    message =
+        '404\nYou are not Authorised to access this page! \nPlease go back to Home page';
+    if (!req.user.admin) res.status(404).render('404', { title: '404', message });
+    else next();
 }
