@@ -177,16 +177,21 @@ app.get('/home', ensureAuthenticated, paginatedResults(Product), (req, res) => {
     res.render('index', { title: 'Home', user: req.user, prod1, prod2 });
 });
 
-app.get('/about', (req, res) => {
+app.get('/about', ensureAuthenticated, (req, res) => {
     res.render('about', { title: 'About' });
 });
 
-app.get('/products', paginatedResults(Product), (req, res) => {
-    var prod = res.paginatedResults.results;
-    var search = res.paginatedResults.search;
-    res.render('product', { title: 'Products', prod, search });
-});
-app.get('/products/:id', (req, res) => {
+app.get(
+    '/products',
+    ensureAuthenticated,
+    paginatedResults(Product),
+    (req, res) => {
+        var prod = res.paginatedResults.results;
+        var search = res.paginatedResults.search;
+        res.render('product', { title: 'Products', prod, search });
+    }
+);
+app.get('/products/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
@@ -287,7 +292,7 @@ app.get('/logout', (req, res) => {
 });
 
 // Admin Pages
-app.get('/admin/modify', (req, res) => {
+app.get('/admin/modify', ensureAuthenticated, (req, res) => {
     Product.find()
         .then((result) => {
             res.render('admin/modify', { title: 'Modify', products: result });
@@ -297,11 +302,11 @@ app.get('/admin/modify', (req, res) => {
         });
 });
 
-app.get('/admin/add', (req, res) => {
+app.get('/admin/add', ensureAuthenticated, (req, res) => {
     res.render('admin/add', { title: 'Add New Products' });
 });
 
-app.post('/admin', (req, res) => {
+app.post('/admin', ensureAuthenticated, (req, res) => {
     const product = new Product(req.body);
     //console.log(product);
     product
@@ -314,7 +319,7 @@ app.post('/admin', (req, res) => {
         });
 });
 
-app.get('/admin/:id', (req, res) => {
+app.get('/admin/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
@@ -325,7 +330,7 @@ app.get('/admin/:id', (req, res) => {
         });
 });
 
-app.post('/admin/edit/:id', (req, res) => {
+app.post('/admin/edit/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     const product = req.body;
 
@@ -355,7 +360,7 @@ app.post('/admin/edit/:id', (req, res) => {
     });
 });
 
-app.delete('/admin/:id', (req, res) => {
+app.delete('/admin/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     console.log(id);
     Product.findByIdAndDelete(id)
@@ -368,7 +373,7 @@ app.delete('/admin/:id', (req, res) => {
 });
 
 //Cart Routes
-app.post('/cart/:id', (req, res) => {
+app.post('/cart/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     //console.log(req.body);
     req.body.username = 'abc';
@@ -385,7 +390,7 @@ app.post('/cart/:id', (req, res) => {
         });
 });
 
-app.get('/cart', (req, res) => {
+app.get('/cart', ensureAuthenticated, (req, res) => {
     Cart.find({})
         .populate('_productid') // only works if we pushed refs to person.eventsAttended
         .exec(function(err, products) {
@@ -394,7 +399,7 @@ app.get('/cart', (req, res) => {
             res.render('cart', { title: 'Cart', products });
         });
 });
-app.get('/cart/delete', (req, res) => {
+app.get('/cart/delete', ensureAuthenticated, (req, res) => {
     const id = req.query.id;
     Cart.findByIdAndDelete(id)
         .then((result) => {
