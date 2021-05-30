@@ -2,6 +2,7 @@
 <html lang="en">
 
 <%- include('./partials/head.ejs') %>
+    <script src="./calc.js"></script>
 
     <body>
 
@@ -39,7 +40,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><input type="number" value="<%=product.quantity%>"></td>
+                                <td><input id="qty1" type="number" min="1" value="<%=product.quantity%>"></td>
                                 <td>
                                     <%=product.quantity*product._productid.price%>$
                                         <%sum+=product.quantity*product._productid.price%>

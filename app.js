@@ -412,7 +412,7 @@ app.delete('/admin/:id', ensureAuthenticated, (req, res) => {
 app.post('/cart/:id', ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     //console.log(req.body);
-    req.body.username = 'abc';
+    req.body.username = req.user.id;
     req.body._productid = id;
     const cart = new Cart(req.body);
     //console.log(cart);
@@ -427,7 +427,7 @@ app.post('/cart/:id', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/cart', ensureAuthenticated, (req, res) => {
-    Cart.find({})
+    Cart.find({ username: req.user.id })
         .populate('_productid') // only works if we pushed refs to person.eventsAttended
         .exec(function(err, products) {
             if (err) return handleError(err);
@@ -450,7 +450,7 @@ app.get('/cart/delete', ensureAuthenticated, (req, res) => {
 // 404 page
 app.use((req, res) => {
     message = 'OOPS, page not found :)';
-    res.status(404).render('404', { title: '404', message });
+    res.status(404).render('404', { title: '404', user: req.user, message });
 });
 
 /*function paginatedResults(model) {
@@ -572,10 +572,9 @@ function paginatedResults(model) {
 }
 
 function access(req, res, next) {
-    console.log(req.user);
-    console.log(res);
     message =
         '404\nYou are not Authorised to access this page! \nPlease go back to Home page';
-    if (!req.user.admin) res.status(404).render('404', { title: '404', message });
+    if (!req.user.admin)
+        res.status(404).render('404', { title: '404', user: req.user, message });
     else next();
 }

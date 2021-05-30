@@ -417,9 +417,11 @@ ul {
     margin: 100px auto 50px;
 }
 
-select {
+select,
+#sort {
     border: 1px solid #3b5a73;
     padding: 5px;
+    border-radius: 30px;
 }
 
 select:focus {
@@ -667,7 +669,9 @@ form a {
 .search,
 #search-btn {
     display: inline-block;
-    margin: 20px
+    margin: 20px;
+    border-radius: 30px;
+    padding: 8px 30px;
 }
 
 .searchbar {
