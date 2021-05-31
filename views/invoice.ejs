@@ -67,7 +67,27 @@
                                     <%}else{%>
                                         <%if(!product.status){%>
                                             <td>
-                                                <form action="/pending/delete/<%=product._id%>" id="form<%=product._id %>"><button type="submit" class="btn-cancel">Cancel Order</button></form>
+
+                                                <button type="button" class="btn btn-info btn-lg btn-cancel" data-toggle="modal" data-target="#myModal">Cancel Order</button>
+                                                <div class="modal" id="myModal">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Confirmation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Are you sure you want to proceed?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="/pending/delete/<%=product._id%>" id="form<%=product._id %>"><button type="submit" class="btn btn-primary">Cancel Order</button></form>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <%}else{%>
                                                 <td></td>
@@ -107,6 +127,12 @@
                                         MenuItems.style.maxHeight = "0px"
                                     }
                                 }
+                                $(document).on('click', '#close', function() {
+                                    $('#myModal').modal('hide');
+                                });
+                                $(document).on('click', '.btn-close', function() {
+                                    $('#myModal').modal('hide');
+                                });
                             </script>
 
     </body>
