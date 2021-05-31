@@ -383,9 +383,7 @@ app.post('/admin/edit/:id', ensureAuthenticated, access, (req, res) => {
                 foundObject.price = product.price;
                 foundObject.src = product.src;
                 foundObject.desc = product.desc;
-                foundObject.rating = product.rating;
                 foundObject.type = product.type;
-
                 foundObject.save((err, updateObject) => {
                     if (err) {
                         console.log(err);

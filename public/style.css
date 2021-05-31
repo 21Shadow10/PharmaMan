@@ -828,6 +828,7 @@ form input {
     border: 1px solid #ccc;
     border-radius: 20px;
     position: relative;
+    padding: 10px;
 }
 
 form .btn {
@@ -919,6 +920,11 @@ form a {
 
 
 /* admin styles */
+
+textarea {
+    border-radius: 20px;
+    padding: 10px;
+}
 
 .medicines {
     display: block;
