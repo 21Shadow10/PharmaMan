@@ -2,7 +2,6 @@
 <html lang="en">
 
 <%- include('./partials/head.ejs') %>
-    <script src="./calc.js"></script>
 
     <body>
 
@@ -28,7 +27,7 @@
                             <tr>
                                 <td>
                                     <div class="cart-info">
-                                        <img src="<%=product._productid.src%>">
+                                        <a href="/products/<%=product._productid._id %>"><img src="<%=product._productid.src%>"></a>
                                         <div>
                                             <p>
                                                 <%=product._productid.name%>
@@ -40,7 +39,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><input id="qty1" type="number" min="1" value="<%=product.quantity%>"></td>
+                                <td>
+                                    <form action="/update/<%=product._productid._id %>" method="POST" id="form<%=product._productid._id %>"><input id="<%=product._productid._id %>" type="number" min="1" value="<%=product.quantity%>" name="qty" onchange="update(this.id)"></form>
+                                </td>
                                 <td>
                                     <%=product.quantity*product._productid.price%>$
                                         <%sum+=product.quantity*product._productid.price%>
@@ -56,7 +57,6 @@
                         <td>Subtotal</td>
                         <td>
                             <%=sum%>$
-                        </td>
                     </tr>
                     <tr>
                         <td>Tax</td>
@@ -71,7 +71,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="" class="btn">Place your Order</a></td>
+                        <td colspan="2"><a href="/orders" class="btn">Place your Order</a></td>
                     </tr>
                 </table>
 
@@ -103,8 +103,13 @@
                         MenuItems.style.maxHeight = "0px"
                     }
                 }
+
+                function update(id) {
+                    var ID = "form" + id;
+                    document.getElementById(ID).submit();
+                }
             </script>
 
     </body>
 
-</html>
+    html>

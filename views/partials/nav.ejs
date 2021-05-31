@@ -10,8 +10,13 @@
             <%if(user.admin){%>
                 <li><a href="/admin/modify">Sell Here</a></li>
                 <%}%>
-                    <li><a href="/account">Account</a></li>
-                    <li><a class="logout" href="/logout">Logout</a></li>
+                    <%if(user.admin){%>
+                        <li><a href="/pending">Orders</a></li>
+                        <%}else{%>
+                            <li><a href="/orders">Your Orders</a></li>
+                            <%}%>
+                                <li><a href="/account">Account</a></li>
+                                <li><a class="logout" href="/logout">Logout</a></li>
         </ul>
     </nav>
     <a href="/cart"> <img src="/cart.png" width="30px" height="30px"></a>

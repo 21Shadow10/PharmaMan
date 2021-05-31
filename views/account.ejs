@@ -43,40 +43,6 @@
                 }
             </script>
             <!-----------js for toggle form------>
-            <script>
-                var LoginForm = document.getElementById("LoginForm")
-                var RegForm = document.getElementById("RegForm")
-                var ForgotPassword = document.getElementById("ForgotPassword")
-                var Indicator = document.getElementById("Indicator")
-
-                function login() {
-                    RegForm.style.transform = "translateX(300px)";
-                    LoginForm.style.transform = "translateX(300px)";
-                    ForgotPassword.style.transform = "translateX(300px)"
-                    Indicator.style.transform = "translateX(0px)";
-                    Indicator.style.visibility = "visible";
-                }
-
-                function register() {
-                    RegForm.style.transform = "translateX(0px)";
-                    LoginForm.style.transform = "translateX(0px)";
-                    ForgotPassword.style.transform = "translateX(0px)";
-                    Indicator.style.transform = "translateX(100px)";
-                    Indicator.style.visibility = "visible";
-                }
-
-                function forgot() {
-                    RegForm.style.transform = "translateX(600px)";
-                    LoginForm.style.transform = "translateX(600px)";
-                    ForgotPassword.style.transform = "translateX(600px)";
-                    Indicator.style.visibility = "hidden";
-                }
-                window.onload(() => {
-                    if (loggedin == 0) {
-                        alert("Invalid Username or Password !");
-                    }
-                })
-            </script>
     </body>
 
 </html>

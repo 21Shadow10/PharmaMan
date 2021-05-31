@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
+const Invoice = require('./models/invoice');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -44,6 +45,7 @@ app.use(function(req, res, next) {
 });
 //DB config
 const db = require('./config/keys').mongoURI;
+
 // Connect to MongoDB
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -435,6 +437,20 @@ app.get('/cart', ensureAuthenticated, (req, res) => {
             res.render('cart', { title: 'Cart', user: req.user, products });
         });
 });
+//to update quantity values in cart
+app.post('/update/:id', ensureAuthenticated, (req, res) => {
+    console.log(req.params.id + ' ' + req.body.qty);
+    const id = { _productid: req.params.id, username: req.user.id };
+    const qty = { quantity: req.body.qty };
+    Cart.findOneAndUpdate(id, qty, { new: true })
+        .then((data) => {
+            console.log(data);
+            res.redirect('/cart');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 app.get('/cart/delete', ensureAuthenticated, (req, res) => {
     const id = req.query.id;
 
@@ -447,6 +463,40 @@ app.get('/cart/delete', ensureAuthenticated, (req, res) => {
         });
 });
 
+/*app.get('/orders', ensureAuthenticated, (req, res) => {
+    Invoice.find({ username: req.user.id })
+        .populate('_productid')
+        .exec(function(err, products) {
+            res.render('invoice', { title: 'Your Orders', user: req.user, products });
+        });
+});
+app.post('/orders', ensureAuthenticated, (req, res) => {
+    Cart.find({ username: req.user.id })
+        .populate('_productid') // only works if we pushed refs to person.eventsAttended
+        .exec(function(err, products) {
+            if (err) return handleError(err);
+            console.log(products);
+            //console.log('P' + products);
+            //res.render('cart', { title: 'Cart', user: req.user, products });
+            Invoice.insertMany(products).then(function() {
+                console.log('Data inserted'); // Success
+                res.redirect('/orders');
+            });
+        })
+        .catch(function(error) {
+            console.log(error); // Failure
+        });
+});
+
+app.get('/pending',ensureAuthenticated,(req,res)=>{
+    Invoice.find().populate('_productid').exec(function(err,products){
+        res.render('invoice',{title: 'Your Orders',user:req.user,products})
+    })
+})
+app.post('/pending',ensureAuthenticated, (req,res)=>{
+    Invoice.find(id:_productid)
+})
+*/
 // 404 page
 app.use((req, res) => {
     message = 'OOPS, page not found :)';
