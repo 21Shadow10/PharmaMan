@@ -12,19 +12,26 @@
         </div>
         <!-----account page------>
         <div class="account">
-            <div>
-                <h1>Profile</h1>
-            </div>
-            <div>
-                Name:
-                <%=user.username%>
-
-
-                    <br> Email:
-                    <%=user.email%>
-            </div>
-
-
+            
+                <div class="acc-head">
+                    <span>My Account</span> 
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-2">
+                        <img src="/user-1.png" alt="Profile Picture" class="user-image">
+                    </div>
+                    <div class="acc-details col-2">
+                        <p>Name: <%=user.username%></p>
+                        <hr><br>
+                        <p>Email: <%=user.email%></p>
+                        <hr><br>
+                        <p>Phone No: 1234567898</p>
+                        <hr><br>
+                        <p>Address: 12, Wharf Street, London, UK</p>
+                        <hr><br>
+                    </div>
+                </div>
         </div>
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>

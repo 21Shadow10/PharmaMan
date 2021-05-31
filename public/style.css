@@ -922,12 +922,25 @@ form a {
 
 /*404*/
 
-.not-found,
-.account {
+.not-found
+{
     margin: 100px 20px;
     min-height: 300px;
 }
 
 .account {
     text-align: justify;
+    margin: 50px;
 }
+
+.acc-head{
+    background: #1caca5;
+    font-size: 2rem;
+    font-weight: bold;
+    width: auto;
+}
+
+.acc-details hr{
+    width: 10%;
+}
+
