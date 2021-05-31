@@ -238,7 +238,7 @@ app.get('/products/:id', ensureAuthenticated, (req, res) => {
 });
 
 // account pages
-app.get('/account', (req, res) => {
+app.get('/account', ensureAuthenticated, (req, res) => {
     res.render('account', { title: 'Account', user: req.user });
 });
 //Login Routes
@@ -336,11 +336,11 @@ app.get('/admin/modify', ensureAuthenticated, access, (req, res) => {
         });
 });
 
-app.get('/admin/add', ensureAuthenticated, (req, res) => {
+app.get('/admin/add', ensureAuthenticated, access, (req, res) => {
     res.render('admin/add', { title: 'Add New Products', user: req.user });
 });
 
-app.post('/admin', ensureAuthenticated, (req, res) => {
+app.post('/admin', ensureAuthenticated, access, (req, res) => {
     const product = new Product(req.body);
     //console.log(product);
     product
@@ -353,7 +353,7 @@ app.post('/admin', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.get('/admin/:id', ensureAuthenticated, (req, res) => {
+app.get('/admin/:id', ensureAuthenticated, access, (req, res) => {
     const id = req.params.id;
     Product.findById(id)
         .then((result) => {
@@ -368,7 +368,7 @@ app.get('/admin/:id', ensureAuthenticated, (req, res) => {
         });
 });
 
-app.post('/admin/edit/:id', ensureAuthenticated, (req, res) => {
+app.post('/admin/edit/:id', ensureAuthenticated, access, (req, res) => {
     const id = req.params.id;
     const product = req.body;
 
@@ -398,7 +398,7 @@ app.post('/admin/edit/:id', ensureAuthenticated, (req, res) => {
     });
 });
 
-app.delete('/admin/:id', ensureAuthenticated, (req, res) => {
+app.delete('/admin/:id', ensureAuthenticated, access, (req, res) => {
     const id = req.params.id;
     console.log(id);
     Product.findByIdAndDelete(id)
@@ -433,18 +433,16 @@ app.get('/cart', ensureAuthenticated, (req, res) => {
         .populate('_productid') // only works if we pushed refs to person.eventsAttended
         .exec(function(err, products) {
             if (err) return handleError(err);
-            //console.log('P' + products);
             res.render('cart', { title: 'Cart', user: req.user, products });
         });
 });
 //to update quantity values in cart
 app.post('/update/:id', ensureAuthenticated, (req, res) => {
     console.log(req.params.id + ' ' + req.body.qty);
-    const id = { _productid: req.params.id, username: req.user.id };
+    const id = { _id: req.params.id, username: req.user.id };
     const qty = { quantity: req.body.qty };
     Cart.findOneAndUpdate(id, qty, { new: true })
         .then((data) => {
-            console.log(data);
             res.redirect('/cart');
         })
         .catch((err) => {
@@ -472,7 +470,6 @@ app.get('/orders', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/place', ensureAuthenticated, (req, res) => {
-    console.log('F');
     Cart.find({ username: req.user.id }).exec(function(err, products) {
         if (err) return handleError(err);
         console.log(products);
@@ -493,10 +490,32 @@ app.get('/pending', ensureAuthenticated, (req, res) => {
             res.render('invoice', { title: 'Your Orders', user: req.user, products });
         });
 });
-/*app.post('/pending', ensureAuthenticated, (req, res) => {
-    Invoice.find(id: _productid)
-})*/
+app.post('/pending/:id', ensureAuthenticated, (req, res) => {
+    const id = { _id: req.params.id };
 
+    var state;
+    if (req.query.status == 'false') state = true;
+    else state = false;
+    const status1 = { status: state };
+    Invoice.findOneAndUpdate(id, status1, { new: true })
+        .then((data) => {
+            res.redirect('/pending');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+app.get('/pending/delete/:id', ensureAuthenticated, (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    Invoice.findByIdAndDelete(id)
+        .then((result) => {
+            res.redirect('/pending');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 // 404 page
 app.use((req, res) => {
     message = 'OOPS, page not found :)';

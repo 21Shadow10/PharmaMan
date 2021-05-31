@@ -12,16 +12,16 @@
         </div>
 
         <!--------------------Cart Item Details---------->
+        <% var sum=0;%>
+            <% if(products.length>0){%>
+                <div class="small-container cart-page">
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
 
-        <div class="small-container cart-page">
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-                <% var sum=0;%>
-                    <% if(products.length>0){%>
 
                         <%products.forEach(product=>{%>
                             <tr>
@@ -40,75 +40,79 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <form action="/update/<%=product._productid._id %>" method="POST" id="form<%=product._productid._id %>"><input id="<%=product._productid._id %>" type="number" min="1" value="<%=product.quantity%>" name="qty" onchange="update(this.id)"></form>
+                                    <form action="/update/<%=product._id %>" method="POST" id="form<%=product._id %>"><input id="<%=product._id %>" type="number" min="1" value="<%=product.quantity%>" name="qty" onchange="update(this.id)"></form>
                                 </td>
                                 <td>
                                     <%=product.quantity*product._productid.price%>$
                                         <%sum+=product.quantity*product._productid.price%>
                                 </td>
                             </tr>
-                            <%})}%>
-            </table>
+                            <%})%>
+                    </table>
+                    <div class="total-price">
 
-            <div class="total-price">
-
-                <table>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td>
-                            <%=sum%>$
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <td>
-                            <%=(0.18*sum).toFixed(2)%>$
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>
-                            <%=(1.18*sum).toFixed(2)%>$
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><a href="/place" class="btn">Place your Order</a></td>
-                    </tr>
-                </table>
+                        <table>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>
+                                    <%=sum%>$
+                            </tr>
+                            <tr>
+                                <td>Tax</td>
+                                <td>
+                                    <%=(0.18*sum).toFixed(2)%>$
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>
+                                    <%=(1.18*sum).toFixed(2)%>$
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><a href="/place" class="btn">Place your Order</a></td>
+                            </tr>
+                        </table>
 
 
-            </div>
-        </div>
+                    </div>
+                </div>
+                <%}else{%>
+                    <div class="blank">
+                        <p>Go to <b>Products</b> page to add stuff to Cart </p>
+                        <a href="/products" class="btn">Go to Products Page</a>
+                    </div>
+                    <%}%>
+                        <!------------Footer-------------->
+                        <%- include('./partials/footer.ejs') %>
 
-        <!------------Footer-------------->
-        <%- include('./partials/footer.ejs') %>
+                            <!-----------JS for toggle Menu------------>
+                            <script>
+                                function check(event) {
+                                    var id = event.target.value;
+                                    console.log(id)
+                                    console.log('remove1')
+                                    const del = document.querySelector('a.delete');
+                                    console.log('remove')
+                                    window.location.href = `/cart/delete?id=${id}`
 
-            <!-----------JS for toggle Menu------------>
-            <script>
-                function check(event) {
-                    var id = event.target.value;
-                    console.log(id)
-                    console.log('remove1')
-                    const del = document.querySelector('a.delete');
-                    console.log('remove')
-                    window.location.href = `/cart/delete?id=${id}`
+                                }
+                                var MenuItems = document.getElementById("MenuItems");
+                                MenuItems.style.maxHeight = "0px";
 
-                }
-                var MenuItems = document.getElementById("MenuItems");
-                MenuItems.style.maxHeight = "0px";
+                                function menuToggle() {
+                                    if (MenuItems.style.maxHeight == "0px") {
+                                        MenuItems.style.maxHeight = "200px"
+                                    } else {
+                                        MenuItems.style.maxHeight = "0px"
+                                    }
+                                }
 
-                function menuToggle() {
-                    if (MenuItems.style.maxHeight == "0px") {
-                        MenuItems.style.maxHeight = "200px"
-                    } else {
-                        MenuItems.style.maxHeight = "0px"
-                    }
-                }
-
-                function update(id) {
-                    var ID = "form" + id;
-                    document.getElementById(ID).submit();
-                }
-            </script>
+                                function update(id) {
+                                    var ID = "form" + id;
+                                    document.getElementById(ID).submit();
+                                }
+                            </script>
 
     </body>
 

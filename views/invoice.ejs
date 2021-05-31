@@ -12,26 +12,28 @@
         </div>
 
         <!--------------------Cart Item Details---------->
+        <% var sum=0;%>
+            <% if(products.length>0){%>
+                <div class="small-container cart-page">
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Status</th>
+                            <%if(user.admin){%>
+                                <th>Update</th>
+                                <%}else{%>
+                                    <th>Cancellation</th>
+                                    <%}%>
+                        </tr>
 
-        <div class="small-container cart-page">
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th>Status</th>
-                    <%if(user.admin){%>
-                        <th>Update</th>
-                        <%}%>
-                </tr>
-                <% var sum=0;%>
-                    <% if(products.length>0){%>
 
                         <%products.forEach(product=>{%>
                             <tr>
                                 <td>
                                     <div class="cart-info">
-                                        <a href="/products/<%=product._productid %>"><img src="<%=product._productid.src%>"></a>
+                                        <a href="/products/<%=product._productid._id %>"><img src="<%=product._productid.src%>"></a>
                                         <div>
                                             <p>
                                                 <%=product._productid.name%>
@@ -60,39 +62,52 @@
                                 </td>
                                 <%if(user.admin){%>
                                     <td>
-                                        <form action="/pending/<%=product._productid._id %>" method="POST" id="form<%=product._productid._id %>"><button type="submit">Update</button></form>
+                                        <form action="/pending/<%=product._id%>?status=<%=product.status%>" method="POST" id="form<%=product._id %>"><button type="submit" class="btn-update">Update</button></form>
                                     </td>
-                                    <%}%>
+                                    <%}else{%>
+                                        <%if(!product.status){%>
+                                            <td>
+                                                <form action="/pending/delete/<%=product._id%>" id="form<%=product._id %>"><button type="submit" class="btn-cancel">Cancel Order</button></form>
+                                            </td>
+                                            <%}else{%>
+                                                <td></td>
+                                                <%}}%>
                             </tr>
-                            <%})}%>
-            </table>
-        </div>
+                            <%})%>
+                    </table>
+                </div>
+                <%}else{%>
+                    <div class="blank">
+                        <p>You don't have any <b>pending or completed orders</b></p>
+                        <a href="/products" class="btn">Go to Products Page</a>
+                    </div>
+                    <%}%>
 
-        <!------------Footer-------------->
-        <%- include('./partials/footer.ejs') %>
+                        <!------------Footer-------------->
+                        <%- include('./partials/footer.ejs') %>
 
-            <!-----------JS for toggle Menu------------>
-            <script>
-                function check(event) {
-                    var id = event.target.value;
-                    console.log(id)
-                    console.log('remove1')
-                    const del = document.querySelector('a.delete');
-                    console.log('remove')
-                    window.location.href = `/cart/delete?id=${id}`
+                            <!-----------JS for toggle Menu------------>
+                            <script>
+                                function check(event) {
+                                    var id = event.target.value;
+                                    console.log(id)
+                                    console.log('remove1')
+                                    const del = document.querySelector('a.delete');
+                                    console.log('remove')
+                                    window.location.href = `/cart/delete?id=${id}`
 
-                }
-                var MenuItems = document.getElementById("MenuItems");
-                MenuItems.style.maxHeight = "0px";
+                                }
+                                var MenuItems = document.getElementById("MenuItems");
+                                MenuItems.style.maxHeight = "0px";
 
-                function menuToggle() {
-                    if (MenuItems.style.maxHeight == "0px") {
-                        MenuItems.style.maxHeight = "200px"
-                    } else {
-                        MenuItems.style.maxHeight = "0px"
-                    }
-                }
-            </script>
+                                function menuToggle() {
+                                    if (MenuItems.style.maxHeight == "0px") {
+                                        MenuItems.style.maxHeight = "200px"
+                                    } else {
+                                        MenuItems.style.maxHeight = "0px"
+                                    }
+                                }
+                            </script>
 
     </body>
 
