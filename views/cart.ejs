@@ -70,7 +70,27 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2"><a href="/place" class="btn">Place your Order</a></td>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Place Order</button>
+                                    <div class="modal" id="myModal">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmation</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to proceed?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="ordered(event)" id="go">Confirm</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </tr>
                         </table>
 
@@ -112,6 +132,19 @@
                                     var ID = "form" + id;
                                     document.getElementById(ID).submit();
                                 }
+
+
+
+                                $(document).on("click", "#go", function(event) {
+                                    console.log('F')
+                                    window.location.href = '/place'
+                                });
+                                $(document).on('click', '#close', function() {
+                                    $('#myModal').modal('hide');
+                                });
+                                $(document).on('click', '.btn-close', function() {
+                                    $('#myModal').modal('hide');
+                                });
                             </script>
 
     </body>
