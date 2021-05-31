@@ -19,6 +19,10 @@
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
+                    <th>Status</th>
+                    <%if(user.admin){%>
+                        <th>Update</th>
+                        <%}%>
                 </tr>
                 <% var sum=0;%>
                     <% if(products.length>0){%>
@@ -27,56 +31,41 @@
                             <tr>
                                 <td>
                                     <div class="cart-info">
-                                        <a href="/products/<%=product._productid._id %>"><img src="<%=product._productid.src%>"></a>
+                                        <a href="/products/<%=product._productid %>"><img src="<%=product._productid.src%>"></a>
                                         <div>
                                             <p>
                                                 <%=product._productid.name%>
                                             </p>
                                             <small><%=product._productid.price%>$</small>
-                                            <br />
-                                            <!--a class="delete" data-doc="<%= product._id %>"><button class="btn">Remove</button></a-->
-                                            <a class="delete"><button class="btn" value="<%= product._id %>" onclick="check(event)">Remove</button></a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <form action="/update/<%=product._productid._id %>" method="POST" id="form<%=product._productid._id %>"><input id="<%=product._productid._id %>" type="number" min="1" value="<%=product.quantity%>" name="qty" onchange="update(this.id)"></form>
+                                    <p>
+                                        <%=product.quantity%>
+                                    </p>
                                 </td>
                                 <td>
                                     <%=product.quantity*product._productid.price%>$
                                         <%sum+=product.quantity*product._productid.price%>
                                 </td>
+                                <td>
+                                    <p>
+                                        <%if(product.status){%>
+                                            <p>Delivered</p>
+                                            <%}else{%>
+                                                <p>In Transit</p>
+                                                <%}%>
+                                    </p>
+                                </td>
+                                <%if(user.admin){%>
+                                    <td>
+                                        <form action="/pending/<%=product._productid._id %>" method="POST" id="form<%=product._productid._id %>"><button type="submit">Update</button></form>
+                                    </td>
+                                    <%}%>
                             </tr>
                             <%})}%>
             </table>
-
-            <div class="total-price">
-
-                <table>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td>
-                            <%=sum%>$
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <td>
-                            <%=(0.18*sum).toFixed(2)%>$
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>
-                            <%=(1.18*sum).toFixed(2)%>$
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><a href="/place" class="btn">Place your Order</a></td>
-                    </tr>
-                </table>
-
-
-            </div>
         </div>
 
         <!------------Footer-------------->
@@ -103,13 +92,8 @@
                         MenuItems.style.maxHeight = "0px"
                     }
                 }
-
-                function update(id) {
-                    var ID = "form" + id;
-                    document.getElementById(ID).submit();
-                }
             </script>
 
     </body>
 
-    html>
+</html>

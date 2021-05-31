@@ -463,40 +463,40 @@ app.get('/cart/delete', ensureAuthenticated, (req, res) => {
         });
 });
 
-/*app.get('/orders', ensureAuthenticated, (req, res) => {
+app.get('/orders', ensureAuthenticated, (req, res) => {
     Invoice.find({ username: req.user.id })
         .populate('_productid')
         .exec(function(err, products) {
             res.render('invoice', { title: 'Your Orders', user: req.user, products });
         });
 });
-app.post('/orders', ensureAuthenticated, (req, res) => {
-    Cart.find({ username: req.user.id })
-        .populate('_productid') // only works if we pushed refs to person.eventsAttended
-        .exec(function(err, products) {
-            if (err) return handleError(err);
-            console.log(products);
-            //console.log('P' + products);
-            //res.render('cart', { title: 'Cart', user: req.user, products });
-            Invoice.insertMany(products).then(function() {
-                console.log('Data inserted'); // Success
-                res.redirect('/orders');
+
+app.get('/place', ensureAuthenticated, (req, res) => {
+    console.log('F');
+    Cart.find({ username: req.user.id }).exec(function(err, products) {
+        if (err) return handleError(err);
+        console.log(products);
+        Invoice.insertMany(products).then(function() {
+            console.log('Data inserted'); // Success
+            Cart.deleteMany({}).then(function() {
+                console.log('cart Emptied');
             });
-        })
-        .catch(function(error) {
-            console.log(error); // Failure
+            res.redirect('/orders');
         });
+    });
 });
 
-app.get('/pending',ensureAuthenticated,(req,res)=>{
-    Invoice.find().populate('_productid').exec(function(err,products){
-        res.render('invoice',{title: 'Your Orders',user:req.user,products})
-    })
-})
-app.post('/pending',ensureAuthenticated, (req,res)=>{
-    Invoice.find(id:_productid)
-})
-*/
+app.get('/pending', ensureAuthenticated, (req, res) => {
+    Invoice.find()
+        .populate('_productid')
+        .exec(function(err, products) {
+            res.render('invoice', { title: 'Your Orders', user: req.user, products });
+        });
+});
+/*app.post('/pending', ensureAuthenticated, (req, res) => {
+    Invoice.find(id: _productid)
+})*/
+
 // 404 page
 app.use((req, res) => {
     message = 'OOPS, page not found :)';
