@@ -295,7 +295,7 @@ app.get('/register', forwardAuthenticated, (req, res) => {
     res.render('register');
 });
 app.post('/register', (req, res) => {
-    const { username, email, password, password2 } = req.body;
+    const { username, email, password, password2, phone } = req.body;
     let errors = [];
 
     if (!username || !email || !password || !password2) {
@@ -327,12 +327,14 @@ app.post('/register', (req, res) => {
                     email,
                     password,
                     password2,
+                    phone,
                 });
             } else {
                 const newUser = new User({
                     username,
                     email,
                     password,
+                    phone,
                 });
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
