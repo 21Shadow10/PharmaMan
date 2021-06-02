@@ -27,7 +27,8 @@
                             <tr>
                                 <td>
                                     <div class="cart-info">
-                                        <a href="/products/<%=product._productid._id %>"><img src="<%=product._productid.src%>"></a>
+                                        <a href="/products/<%=product._productid._id %>"><img src="data:image/<%=product._productid.src.contentType%>;base64,
+                     <%=product._productid.src.data.toString('base64')%>"></a>
                                         <div>
                                             <p>
                                                 <%=product._productid.name%>

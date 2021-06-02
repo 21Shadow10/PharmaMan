@@ -12,34 +12,29 @@
         <div class="add-med">
             <div class="row profile">
                 <div class="col-2 ">
-                    <%if(!user.image.data){%>
+                    <%if(!product.src.data){%>
                         <img class="image" src="/profile.jpg" alt="Profile Picture" class="user-image">
                         <%}else{%>
-                            <img class="image" src="data:image/<%=user.image.contentType%>;base64,
-                     <%=user.image.data.toString('base64')%>">
+                            <img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>">
                             <%}%>
-                                <br>
-                                <form action="/account" method="POST" enctype="multipart/form-data" style="margin-left: 200px;">
-                                    <label for="image" style="color: #555;">Upload</label>
-                                    <br>
-                                    <input type="file" id="image" name="image" value="" required>
-                                    <button type="submit" class="btn" id="btn-edit">Upload</button>
-                                </form>
+
                 </div>
                 <div class="col-2">
                     <div class="med-add">
-                        <form action="/admin/edit/<%= product._id %>" method="POST">
+                        <form action="/admin/edit/<%= product._id %>" method="POST" enctype="multipart/form-data">
                             <label for="name">Enter Your Medicine Name: </label>
                             <input type="text" name="name" id="name" value="<%= product.name %>">
                             <label for="price">Enter Your Price($): </label>
                             <input type="number" name="price" id="price" value="<%= product.price %>">
-                            <label for="src">Enter Your Medicine Image Link: </label>
-                            <input type="text" name="src" id="src" value="<%= product.src %>">
                             <label for="desc">Describe your product: </label><br>
                             <textarea name="desc" type="text" id="desc" cols="30" rows="10"><%= product.desc %></textarea>
                             <br>
                             <label for="type">Enter Your Medicine Type: </label>
                             <input type="text" name="type" id="type" value="<%= product.type %>">
+                            <br>
+                            <label for="image" style="color: #555;">Upload</label>
+                            <input type="file" id="image" name="src">
                             <br>
                             <button class="btn" type="submit">Edit</button>
                             <a class="delete" data-doc="<%=product._id%>">

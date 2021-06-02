@@ -275,7 +275,7 @@ app.post(
             contentType: 'image/png',
         };
         user.image.data = img.data;
-        user.contentType = img.contentType;
+        user.image.contentType = img.contentType;
         user.save();
         console.log('success');
         res.redirect('/account');
@@ -388,10 +388,27 @@ app.get('/admin/modify', ensureAuthenticated, access, (req, res) => {
 app.get('/admin/add', ensureAuthenticated, access, (req, res) => {
     res.render('admin/add', { title: 'Add New Products', user: req.user });
 });
+//add medicine
+app.post('/admin', ensureAuthenticated, upload.single('src'), (req, res) => {
+    const image = req.body.src;
+    var img = {
+        data: fs.readFileSync(
+            path.join(__dirname + '/uploads/' + req.file.filename)
+        ),
+        contentType: 'image/png',
+    };
+    const neo = {
+        name: req.body.name,
+        price: req.body.price,
+        desc: req.body.desc,
+        type: req.body.type,
+        src: {
+            data: img.data,
+            contentType: img.contentType,
+        },
+    };
+    const product = new Product(neo);
 
-app.post('/admin', ensureAuthenticated, access, (req, res) => {
-    const product = new Product(req.body);
-    //console.log(product);
     product
         .save()
         .then((result) => {
@@ -444,7 +461,6 @@ app.post('/admin/edit/:id', ensureAuthenticated, access, (req, res) => {
         }
     });
 });
-
 app.delete('/admin/:id', ensureAuthenticated, access, (req, res) => {
     const id = req.params.id;
     console.log(id);

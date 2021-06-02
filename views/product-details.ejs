@@ -11,9 +11,10 @@
         </div>
         <!-- single product details-->
         <div class="small-container single-product">
-            <div class="row">
+            <div class="row home">
                 <div class="col-2">
-                    <img src="<%=product.src%>" width="100%" id="ProductImg">
+                    <img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>" width="100%" id="ProductImg">
                     <div class="small-img-row">
                         <div class="small-img-col">
                             <img src="/gallery-1.jpg" width="100%" class="small-img">

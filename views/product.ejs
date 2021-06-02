@@ -37,7 +37,8 @@
                                 <% products.forEach( product => {%>
                                     <div class="col-4 ">
                                         <a class="single " href="/products/<%=product._id %>">
-                    <img src="<%- product.src %>">
+                    <img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>">
                     <h4>
                         <%= product.name %>
                     </h4>

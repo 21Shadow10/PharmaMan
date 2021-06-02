@@ -40,13 +40,19 @@
                             <tr>
                                 <td>
                                     <div class="cart-info onemed">
-                                        <a href="/products/<%=product._id %>"><img src="<%=product.src%>"></a>
-                                        <div>
-                                            <p>
-                                                <%=product.name%>
-                                            </p>
-                                            <small><%=product.price%>$</small>
-                                        </div>
+                                        <%if(!product.src.data){%>
+                                            <p></p>
+                                            <%}else{%>
+                                                <a href="/products/<%=product._id %>"><img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>"></a>
+                                                <%}%>
+
+                                                    <div>
+                                                        <p>
+                                                            <%=product.name%>
+                                                        </p>
+                                                        <small><%=product.price%>$</small>
+                                                    </div>
                                     </div>
                                 </td>
                                 <td>
