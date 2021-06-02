@@ -9,9 +9,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const bodyParser = require('body-parser') ;
-const fs = require('fs') ;
-const path = require('path') ;
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 //Passport config
 require('./config/passport')(passport);
@@ -246,31 +246,41 @@ app.get('/products/:id', ensureAuthenticated, (req, res) => {
 // account pages
 //Middleware for Multer
 var storage = multer.diskStorage({
-    destination: "./uploads/",
+    destination: './uploads/',
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '_' + Date.now()+path.extname(file.originalname)) ;
-    }
+        cb(
+            null,
+            file.fieldname + '_' + Date.now() + path.extname(file.originalname)
+        );
+    },
 });
- 
+
 var upload = multer({ storage: storage });
 
 app.get('/account', ensureAuthenticated, (req, res) => {
     res.render('account', { title: 'Account', user: req.user });
 });
 
-app.post('/account' , ensureAuthenticated, upload.single('image'), (req,res) => {
-    const user = req.user ;
-    const image = req.body.image ;
-    console.log(user) ;
-    var img = {
-        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-        contentType: 'image/png'
+app.post(
+    '/account',
+    ensureAuthenticated,
+    upload.single('image'),
+    (req, res) => {
+        const user = req.user;
+        const image = req.body.image;
+        var img = {
+            data: fs.readFileSync(
+                path.join(__dirname + '/uploads/' + req.file.filename)
+            ),
+            contentType: 'image/png',
+        };
+        user.image.data = img.data;
+        user.contentType = img.contentType;
+        user.save();
+        console.log('success');
+        res.redirect('/account');
     }
-    user.image.data = img.data ;
-    user.contentType = img.contentType ;
-    console.log("success") ;
-    res.redirect('/account') ;
-})
+);
 //Login Routes
 app.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 app.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -675,6 +685,3 @@ function access(req, res, next) {
         res.status(404).render('404', { title: '404', user: req.user, message });
     else next();
 }
-
-
-

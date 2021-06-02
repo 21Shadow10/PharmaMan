@@ -12,32 +12,43 @@
         </div>
         <!-----account page------>
         <div class="account">
-            
-                <div class="acc-head">
-                    <span>My Account</span> 
+
+            <div class="acc-head">
+                <span>My Account</span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-2">
+                    <%if(!user.image.data){%>
+                        <img src="/profile.jpg" alt="Profile Picture" class="user-image">
+                        <%}else{%>
+                            <img src="data:image/<%=user.image.contentType%>;base64,
+                     <%=user.image.data.toString('base64')%>">
+                            <%}%>
+
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-2">
-                        <img src="/user-1.png" alt="Profile Picture" class="user-image">
-                        
-                    </div>
-                    <div class="acc-details col-2">
-                        <p>Name: <%=user.username%></p>
-                        <hr><br>
-                        <p>Email: <%=user.email%></p>
-                        <hr><br>
-                        <p>Phone No: 1234567898</p>
-                        <hr><br>
-                        <p>Address: 12, Wharf Street, London, UK</p>
-                        <hr><br>
-                    </div>
+                <div class="acc-details col-2">
+                    <p>Name:
+                        <%=user.username%>
+                    </p>
+                    <hr><br>
+                    <p>Email:
+                        <%=user.email%>
+                    </p>
+                    <hr><br>
+                    <p> Phone No: 1234567898</p>
+                    <hr><br>
+                    <p> Address: 12, Wharf Street, London, UK</p>
+                    <hr><br>
                     <form action="/account" method="POST" enctype="multipart/form-data">
-                        <label for="image">Upload</label>
+                        <label for="image" style="color: #555;">Upload</label>
+                        <hr width="30%">
                         <input type="file" id="image" name="image" value="" required>
-                        <button type="submit" class="btn">Upload</button>
+                        <button type="submit" class="btn" id="btn-upload">Upload</button>
                     </form>
                 </div>
+
+            </div>
         </div>
         <!------------Footer-------------->
         <%- include('./partials/footer.ejs') %>
