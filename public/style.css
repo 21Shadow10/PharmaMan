@@ -104,7 +104,7 @@ p {
 
 .row {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
     justify-content: space-around;
 }
@@ -979,6 +979,13 @@ textarea {
     margin-top: 24px;
 }
 
+#btn-edit {
+    border: none;
+    cursor: pointer;
+    margin-right: 100px;
+    width: auto;
+}
+
 
 /*404*/
 
@@ -987,7 +994,8 @@ textarea {
     min-height: 300px;
 }
 
-.account {
+.account,
+.add-med {
     text-align: justify;
     margin: 50px;
     padding: 10px;
@@ -1001,8 +1009,18 @@ textarea {
     border-radius: 0%;
 }
 
-.profile {
+.image {
+    margin-left: 200px;
+}
+
+.profile,
+.home {
     padding: 10px;
+    align-items: center;
+}
+
+.profile {
+    align-items: end;
 }
 
 .profile-form input {

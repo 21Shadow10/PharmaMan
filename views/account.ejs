@@ -20,9 +20,9 @@
             <div class="row profile">
                 <div class="col-2">
                     <%if(!user.image.data){%>
-                        <img src="/profile.jpg" alt="Profile Picture" class="user-image">
+                        <img class="image" src="/profile.jpg" alt="Profile Picture" class="user-image">
                         <%}else{%>
-                            <img src="data:image/<%=user.image.contentType%>;base64,
+                            <img class="image" src="data:image/<%=user.image.contentType%>;base64,
                      <%=user.image.data.toString('base64')%>">
                             <%}%>
 
