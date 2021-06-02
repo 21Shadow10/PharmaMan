@@ -281,6 +281,13 @@ app.post(
         res.redirect('/account');
     }
 );
+app.post('/account-edit', ensureAuthenticated, (req, res) => {
+    user = req.user;
+    user.address = req.body.address;
+    user.phone = req.body.phone;
+    user.save();
+    res.redirect('/account');
+});
 //Login Routes
 app.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 app.get('/login', forwardAuthenticated, (req, res) => res.render('login'));

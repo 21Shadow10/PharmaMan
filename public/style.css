@@ -139,13 +139,6 @@ p {
     font-weight: 400;
 }
 
-#btn-upload {
-    border: none;
-    cursor: pointer;
-    margin: 10px 0;
-    width: auto;
-}
-
 .btn-update,
 .btn-cancel {
     display: inline-block;
@@ -997,6 +990,7 @@ textarea {
 .account {
     text-align: justify;
     margin: 50px;
+    padding: 10px;
 }
 
 #image {
@@ -1007,13 +1001,37 @@ textarea {
     border-radius: 0%;
 }
 
+.profile {
+    padding: 10px;
+}
+
+.profile-form input {
+    width: auto;
+}
+
 .acc-head {
     background: #1caca5;
     font-size: 2rem;
     font-weight: bold;
     width: auto;
+    padding: 5px;
 }
 
 .acc-details hr {
     width: 10%;
+}
+
+#edit {
+    height: 24px;
+    width: 24px;
+    float: right;
+    cursor: pointer;
+}
+
+#btn-upload {
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    width: auto;
+    float: right;
 }

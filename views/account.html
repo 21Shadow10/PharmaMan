@@ -1,151 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>PharmaMan</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/Logo_med2.png" width="125px" />
-            </div>
-            <nav>
-                <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="product.html">Products</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#footer">Contact</a></li>
-                    <li><a href="account.html">Account</a></li>
-                </ul>
-            </nav>
-            <a href="cart.html"> <img src="images/cart.png" width="30px" height="30px"></a>
-            <img src="images/menu.png" class="menu-icon" onclick="menuToggle()">
-        </div>
-    </div>
-    <!-----account page------>
-    <div class="account-page">
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-                    <img src="images/main2.png" width="100%">
-                </div>
-                <div class="col-2">
-                    <div class="form-container">
-                        <div class="form-btn">
-                            <span onclick="login()">Login</span>
-                            <span onclick="register()">Register</span>
-                            <hr id="Indicator">
-                        </div>
-                        <form id="ForgotPassword">
-                            <input type="email" placeholder="Email" required>
-                            <button type="submit" class="btn">Submit</button>
-                        </form>
-                        <form id="LoginForm">
-                            <input type="text" placeholder="Username" required>
-                            <input type="password" placeholder="Password" required>
-                            <button type="submit" class="btn">Login</button>
-                            <a href="#" onclick="forgot()">Forgot Password</a>
-                        </form>
-                        <form id="RegForm">
-                            <input type="text" placeholder="Username" required>
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password" required>
-                            <button type="submit" class="btn">Register</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!------------Footer-------------->
-    <div class="footer" id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Contact US</h3>
-                    <p>Feel free to give your opinion</p>
-                    <div class="app-logo">
-                        <a href="mailto:dharmikgovani21@gmail.com">
-                            <p>Mail Id : pharmaman@gmail.com</p>
-                        </a>
-                        <p>Phone No : 079 40014004</p>
-                    </div>
-                </div>
-                <div class="footer-col-2">
-                    <img src="images/Logo_med2.png">
-                    <p>Our Purpose is to Sustainably make the pleasure and Benefits of Generic Pharmacy Accessible to Many.</p>
-                </div>
-
-                <div class="footer-col-4">
-                    <h3>Follow Us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Instagram</li>
-                        <li>Twitter</li>
-                        <li>YouTube</li>
-                    </ul>
-                </div>
-            </div>
-
-            <hr>
-            <p class="copyright">logo icons PNG Designed By Irfan Khan Alvi from <a href="https://pngtree.com/">Pngtree.com</a></p>
-        </div>
-    </div>
-
-    <!-----------JS for toggle Menu------------>
-    <script>
-        var MenuItems = document.getElementById("MenuItems");
-        MenuItems.style.maxHeight = "0px";
-
-        function menuToggle() {
-            if (MenuItems.style.maxHeight == "0px") {
-                MenuItems.style.maxHeight = "200px"
-            } else {
-                MenuItems.style.maxHeight = "0px"
-            }
-        }
-    </script>
-    <!-----------js for toggle form------>
-    <script>
-        var LoginForm = document.getElementById("LoginForm")
-        var RegForm = document.getElementById("RegForm")
-        var ForgotPassword = document.getElementById("ForgotPassword")
-        var Indicator = document.getElementById("Indicator")
-
-        function register() {
-            RegForm.style.transform = "translateX(0px)";
-            LoginForm.style.transform = "translateX(0px)";
-            ForgotPassword.style.transform = "translateX(0px)";
-            Indicator.style.transform = "translateX(100px)";
-            Indicator.style.visibility = "visible";
-        }
-
-        function login() {
-            RegForm.style.transform = "translateX(300px)";
-            LoginForm.style.transform = "translateX(300px)";
-            ForgotPassword.style.transform = "translateX(300px)"
-            Indicator.style.transform = "translateX(0px)";
-            Indicator.style.visibility = "visible";
-        }
-
-        function forgot() {
-            RegForm.style.transform = "translateX(600px)";
-            LoginForm.style.transform = "translateX(600px)";
-            ForgotPassword.style.transform = "translateX(600px)";
-            Indicator.style.visibility = "hidden";
-        }
-    </script>
-</body>
-
-</html>
+<form class="profile-form" method="POST" action="/account">
+    <p>Name:
+        <%=user.username%>
+    </p>
+    <hr><br>
+    <p>Email:
+        <%=user.email%>
+    </p>
+    <hr><br>
+    <p> Phone No: <input type="tel" id="phone" name="phone" placeholder="<%=user.phone%>" pattern="[0-9]{10}" value="" required>
+    </p>
+    <hr><br>
+    <p> Address: <input type="text" placeholder="<%=user.address%>" name="address" id="address" required></p>
+    <hr><br>
+    <button type="submit" class="btn" id="btn-upload">Edit</button>
+</form>
+<form action="/account" method="POST" enctype="multipart/form-data">
+    <label for="image" style="color: #555;">Upload</label>
+    <hr width="30%">
+    <input type="file" id="image" name="image" value="" required>
+    <button type="submit" class="btn" id="btn-upload">Upload</button>
+</form>
