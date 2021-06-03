@@ -50,11 +50,11 @@
                 <% if (prod1.length > 0) { %>
                     <% prod1.forEach( product => {%>
                         <div class="col-4">
-                            <a class="single" href="/products/<%=product._id %>">
-                                <img src="<%- product.src %>">
-                                <h4>
-                                    <%= product.name %>
-                                </h4>
+                            <a href="/products/<%=product._id %>"><img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>"></a>
+                            <h4>
+                                <%= product.name %>
+                            </h4>
                             </a>
                             <div class="rating">
                                 <% for (j = 0; j < product.rating; j++) { %>
@@ -83,11 +83,11 @@
                             <% if (products.length > 0) { %>
                                 <% products.forEach( product => {%>
                                     <div class="col-4">
-                                        <a class="single" href="/products/<%=product._id %>">
-                                            <img src="<%- product.src %>">
-                                            <h4>
-                                                <%= product.name %>
-                                            </h4>
+                                        <a href="/products/<%=product._id %>"><img src="data:image/<%=product.src.contentType%>;base64,
+                     <%=product.src.data.toString('base64')%>"></a>
+                                        <h4>
+                                            <%= product.name %>
+                                        </h4>
                                         </a>
                                         <div class="rating">
                                             <% for (j = 0; j < product.rating; j++) { %>
