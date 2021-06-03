@@ -543,14 +543,28 @@ app.get('/orders', ensureAuthenticated, (req, res) => {
 	Invoice.find({ username: req.user.id })
 		.populate('_productid')
 		.exec(function (err, products) {
+			console.log(products);
 			res.render('invoice', { title: 'Your Orders', user: req.user, products });
 		});
 });
-
+app.post('/orders/review/:id', ensureAuthenticated, (req, res) => {
+	const id = req.params.id;
+	Invoice.findOneAndUpdate(
+		{ _id: id },
+		{ rating: req.body.rating },
+		{ new: true }
+	)
+		.then((data) => {
+			console.log(data);
+			res.redirect('/orders');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
 app.get('/place', ensureAuthenticated, (req, res) => {
 	Cart.find({ username: req.user.id }).exec(function (err, products) {
 		if (err) return handleError(err);
-		console.log(products);
 		Invoice.insertMany(products).then(function () {
 			console.log('Data inserted'); // Success
 			Cart.deleteMany({}).then(function () {
