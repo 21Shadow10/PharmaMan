@@ -18,11 +18,11 @@
             </div>
             <br>
             <div class="row profile">
-                <div class="col-2">
+                <div class="image col-2">
                     <%if(!user.image.data){%>
-                        <img class="image" src="/profile.jpg" alt="Profile Picture" class="user-image">
+                        <img src="/profile.jpg" alt="Profile Picture" class="user-image">
                         <%}else{%>
-                            <img class="image" src="data:image/<%=user.image.contentType%>;base64,
+                            <img src="data:image/<%=user.image.contentType%>;base64,
                      <%=user.image.data.toString('base64')%>">
                             <%}%>
 
