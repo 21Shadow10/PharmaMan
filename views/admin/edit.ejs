@@ -37,10 +37,14 @@
                             <input type="file" id="image" name="src">
                             <br>
                             <button class="btn" type="submit">Edit</button>
-                            <a class="delete" data-doc="<%=product._id%>">
-                                <button class="btn">Delete</button>
-                            </a>
+
                         </form>
+                        <a href="/admin/delete/<%=product._id%>">
+                            <button class="btn extra">Delete</button>
+                        </a>
+                        <a href="/admin/modify">
+                            <button class="btn extra">Cancel</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,11 +59,13 @@
 
         trashcan.addEventListener('click', (e) => {
             const endpoint = `/admin/${trashcan.dataset.doc}`;
-
             fetch(endpoint, {
                     method: 'DELETE'
                 })
-                .then((response) => response.json())
+                .then((response) => {
+                    console.log(response);
+                    response.json()
+                })
                 .then((data) => window.location.href = data.redirect)
                 .catch(err => console.log(err))
         })

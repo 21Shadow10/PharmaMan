@@ -963,7 +963,7 @@ textarea {
 .med-add form {
     max-width: 400px;
     margin: 0 auto;
-    min-height: 800px;
+    min-height: 700px;
 }
 
 .med-add input {
@@ -983,6 +983,11 @@ textarea {
     cursor: pointer;
     margin-right: 100px;
     width: auto;
+}
+
+.extra {
+    margin-left: 150px;
+    text-align: center;
 }
 
 

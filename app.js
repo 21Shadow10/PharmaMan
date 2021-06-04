@@ -440,12 +440,14 @@ app.post(
     (req, res) => {
         const id = req.params.id;
         const product = req.body;
-        var img = {
-            data: fs.readFileSync(
-                path.join(__dirname + '/uploads/' + req.file.filename)
-            ),
-            contentType: 'image/png',
-        };
+        if (req.file) {
+            var img = {
+                data: fs.readFileSync(
+                    path.join(__dirname + '/uploads/' + req.file.filename)
+                ),
+                contentType: 'image/png',
+            };
+        }
         Product.findOne({ _id: id }, (err, foundObject) => {
             if (err) {
                 console.log(err);
@@ -456,11 +458,13 @@ app.post(
                     foundObject.name = product.name;
                     foundObject.price = product.price;
                     foundObject.desc = product.desc;
-                    (foundObject.src = {
-                        data: img.data,
-                        contentType: img.contentType,
-                    }),
-                    (foundObject.type = product.type);
+                    if (req.file) {
+                        foundObject.src = {
+                            data: img.data,
+                            contentType: img.contentType,
+                        };
+                    }
+                    foundObject.type = product.type;
                     foundObject.save((err, updateObject) => {
                         if (err) {
                             console.log(err);
@@ -474,12 +478,12 @@ app.post(
         });
     }
 );
-app.delete('/admin/:id', ensureAuthenticated, access, (req, res) => {
+app.get('/admin/delete/:id', ensureAuthenticated, access, (req, res) => {
     const id = req.params.id;
     console.log(id);
     Product.findByIdAndDelete(id)
         .then((result) => {
-            res.json({ redirect: '/admin/modify' });
+            res.redirect('/admin/modify');
         })
         .catch((err) => {
             console.log(err);
