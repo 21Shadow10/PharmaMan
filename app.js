@@ -612,50 +612,6 @@ app.use((req, res) => {
     res.status(404).render('404', { title: '404', user: req.user, message });
 });
 
-/*function paginatedResults(model) {
-                        return async(req, res, next) => {
-                            var page;
-                            var limit;
-                            if (req.query.page == undefined && req.query.limit == undefined) {
-                                page = 1;
-                                limit = 8;
-                            } else {
-                                page = parseInt(req.query.page);
-                                limit = parseInt(req.query.limit);
-                            }
-                            //console.log(page + ' ' + limit);
-
-                            const startIndex = (page - 1) * limit;
-                            const endIndex = page * limit;
-                            const results = {};
-                            if (endIndex < (await model.countDocuments().exec())) {
-                                results.next = {
-                                    page: page + 1,
-                                    limit: limit,
-                                };
-                            }
-                            if (startIndex > 0) {
-                                results.previous = {
-                                    page: page - 1,
-                                    limit: limit,
-                                };
-                            }
-                            try {
-                                results.results = await model.find().limit(limit).skip(startIndex).exec();
-                                var products = results.results;
-                                const prod = [];
-                                var chunkSize = 4;
-                                for (let i = 0; i < products.length; i += chunkSize) {
-                                    const chunk = products.slice(i, i + chunkSize);
-                                    prod.push(chunk);
-                                }
-                                res.paginatedResults = prod;
-                                next();
-                            } catch (e) {
-                                res.status(500).json({ message: e.message });
-                            }
-                        };
-                    }*/
 function paginatedResults(model) {
     return async(req, res, next) => {
         var page;
@@ -706,7 +662,7 @@ function paginatedResults(model) {
                     .exec();
             } else {
                 results.results = await model
-                    .find({ name: search })
+                    .find({ name: { $regex: `${search}` } })
                     .sort(obj)
                     .limit(limit)
                     .skip(startIndex)
