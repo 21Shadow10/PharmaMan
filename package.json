@@ -8,7 +8,7 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon app.js"
+        "start": "DB_URI=mongodb+srv://AT:LETSdoMONGO0@nodetrials.vryil.mongodb.net/passport?retryWrites=true&w=majority DB_PASS=LETSdoMONGO0 DB_NAME=PharmaMan DB_PROJ=nodetrials DB_SECRET=secret node app.js"
     },
     "author": "",
     "license": "ISC",
